@@ -5,13 +5,11 @@ export const envSchema = z.object({
   DATABASE_URL: z.string().min(1),
   ACCESS_TOKEN_SECRET: z.string().min(1),
   REFRESH_TOKEN_SECRET: z.string().min(1),
-  REDIS_HOST: z.string().default('localhost'),
-  REDIS_PORT: z.coerce.number().default(6379),
+  REDIS_URL: z.string().min(1),
   SMTP_HOST: z.string().min(1),
   SMTP_PORT: z.coerce.number().min(1),
   SMTP_USER: z.string().min(1),
   SMTP_PASS: z.string().min(1),
-  FRONTEND_URL: z.string().url().default('http://localhost:3000'),
 });
 
 export type EnvConfig = z.infer<typeof envSchema>;
