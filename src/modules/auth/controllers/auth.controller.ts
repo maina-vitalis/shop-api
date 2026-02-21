@@ -1,0 +1,126 @@
+import {
+  Controller,
+  Post,
+  Body,
+  Param,
+  Res,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
+import { type Response } from 'express';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { AuthService } from '../services/auth.service';
+import {
+  RegisterDto,
+  VerifyOtpDto,
+  LoginDto,
+  ForgetPasswordDto,
+  ResetPasswordDto,
+} from '../dto';
+
+@ApiTags('Auth')
+@Controller('auth')
+export class AuthController {
+  constructor(private readonly authService: AuthService) {}
+
+  @Post('register')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Register a new user' })
+  @ApiResponse({ status: 200, description: 'OTP sent to email' })
+  @ApiResponse({ status: 400, description: 'Validation error' })
+  async register(@Body() registerDto: RegisterDto) {
+    return this.authService.register(registerDto);
+  }
+
+  @Post('verify-otp')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Verify OTP and complete registration' })
+  @ApiResponse({ status: 200, description: 'OTP verified successfully' })
+  @ApiResponse({ status: 400, description: 'Invalid or expired OTP' })
+  async verifyOtp(@Body() verifyOtpDto: VerifyOtpDto) {
+    return this.authService.verifyOtp(verifyOtpDto);
+  }
+
+  @Post('login')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Login user' })
+  @ApiResponse({ status: 200, description: 'Login successful' })
+  @ApiResponse({ status: 401, description: 'Invalid credentials' })
+  async login(
+    @Body() loginDto: LoginDto,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const result = await this.authService.login(loginDto);
+
+    // Set refresh token as HTTP-only cookie
+    response.cookie('refresh_token', result.refreshToken, {
+      httpOnly: true,
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      // secure: true, // Uncomment in production with HTTPS
+    });
+
+    return {
+      status: 'success',
+      message: 'Login successful',
+      accessToken: result.accessToken,
+    };
+  }
+
+  @Post('refresh-token')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Refresh access token' })
+  @ApiResponse({ status: 200, description: 'New access token generated' })
+  @ApiResponse({ status: 401, description: 'Invalid refresh token' })
+  async refreshToken(@Res({ passthrough: true }) response: Response) {
+    // This will be handled by the JwtRefreshStrategy
+    // The refresh token is extracted from cookies in the strategy
+    const cookies = response.req?.cookies as Record<string, string> | undefined;
+    const refreshToken = cookies?.['refresh_token'];
+
+    if (!refreshToken) {
+      return {
+        statusCode: 401,
+        message: 'No refresh token provided',
+      };
+    }
+
+    const result = await this.authService.refreshToken(refreshToken);
+    return {
+      accessToken: result.accessToken,
+    };
+  }
+
+  @Post('forget-password')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Request password reset' })
+  @ApiResponse({ status: 200, description: 'Reset email sent' })
+  @ApiResponse({ status: 404, description: 'User not found' })
+  async forgetPassword(@Body() forgetPasswordDto: ForgetPasswordDto) {
+    return this.authService.forgetPassword(forgetPasswordDto);
+  }
+
+  @Post('reset-password/:resetToken')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Reset password with token' })
+  @ApiResponse({ status: 200, description: 'Password reset successful' })
+  @ApiResponse({ status: 400, description: 'Invalid or expired token' })
+  async resetPassword(
+    @Param('resetToken') resetToken: string,
+    @Body() resetPasswordDto: ResetPasswordDto,
+  ) {
+    return this.authService.resetPassword(resetToken, resetPasswordDto);
+  }
+
+  @Post('logout')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Logout user' })
+  @ApiResponse({ status: 200, description: 'Logged out successfully' })
+  logout(@Res({ passthrough: true }) response: Response) {
+    response.clearCookie('refresh_token');
+    return {
+      status: 'success',
+      message: 'Logged out successfully',
+    };
+  }
+}
