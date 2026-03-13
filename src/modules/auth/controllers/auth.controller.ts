@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { type Response } from 'express';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services';
 import {
   RegisterDto,
   VerifyOtpDto,
@@ -17,12 +17,14 @@ import {
   ForgetPasswordDto,
   ResetPasswordDto,
 } from '../dto';
+import { Public } from '../decorators';
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @Public()
   @Post('register')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Register a new user' })
@@ -32,6 +34,7 @@ export class AuthController {
     return this.authService.register(registerDto);
   }
 
+  @Public()
   @Post('verify-otp')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Verify OTP and complete registration' })
@@ -41,6 +44,7 @@ export class AuthController {
     return this.authService.verifyOtp(verifyOtpDto);
   }
 
+  @Public()
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Login user' })
@@ -50,13 +54,21 @@ export class AuthController {
     @Body() loginDto: LoginDto,
     @Res({ passthrough: true }) response: Response,
   ) {
+    console.log('login in');
     const result = await this.authService.login(loginDto);
-
     // Set refresh token as HTTP-only cookie
     response.cookie('refresh_token', result.refreshToken, {
       httpOnly: true,
       sameSite: 'strict',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      // secure: true, // Uncomment in production with HTTPS
+    });
+
+    // Set access_token token as HTTP-only cookie
+    response.cookie('access_token', result.accessToken, {
+      httpOnly: true,
+      sameSite: 'strict',
+      maxAge: 15 * 60 * 1000, // 15 minutes
       // secure: true, // Uncomment in production with HTTPS
     });
 
@@ -67,12 +79,13 @@ export class AuthController {
     };
   }
 
+  @Public()
   @Post('refresh-token')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Refresh access token' })
   @ApiResponse({ status: 200, description: 'New access token generated' })
   @ApiResponse({ status: 401, description: 'Invalid refresh token' })
-  async refreshToken(@Res({ passthrough: true }) response: Response) {
+  refreshToken(@Res({ passthrough: true }) response: Response) {
     // This will be handled by the JwtRefreshStrategy
     // The refresh token is extracted from cookies in the strategy
     const cookies = response.req?.cookies as Record<string, string> | undefined;
@@ -85,12 +98,13 @@ export class AuthController {
       };
     }
 
-    const result = await this.authService.refreshToken(refreshToken);
+    const result = this.authService.refreshToken(refreshToken);
     return {
       accessToken: result.accessToken,
     };
   }
 
+  @Public()
   @Post('forget-password')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Request password reset' })
@@ -100,6 +114,7 @@ export class AuthController {
     return this.authService.forgetPassword(forgetPasswordDto);
   }
 
+  @Public()
   @Post('reset-password/:resetToken')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Reset password with token' })
@@ -112,6 +127,7 @@ export class AuthController {
     return this.authService.resetPassword(resetToken, resetPasswordDto);
   }
 
+  @Public()
   @Post('logout')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Logout user' })

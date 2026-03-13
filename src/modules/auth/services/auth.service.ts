@@ -3,11 +3,12 @@ import {
   BadRequestException,
   UnauthorizedException,
   Logger,
+  ConflictException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import * as crypto from 'node:crypto';
 import { PrismaService } from '../../prisma/prisma.service';
-import { MailService } from '../../../shared/mail/mail.service';
+import { MailService } from '../../../shared/mail';
 import { OtpService } from './otp.service';
 import { TokenService } from './token.service';
 import {
@@ -17,8 +18,9 @@ import {
   ForgetPasswordDto,
   ResetPasswordDto,
 } from '../dto';
-import { RedisService } from '../../../shared/redis/redis.service';
+import { RedisService } from '../../../shared/redis';
 import { ConfigService } from '@nestjs/config';
+import z from 'zod';
 
 interface UserData {
   name: string;
@@ -57,7 +59,7 @@ export class AuthService {
     });
 
     if (existingUser) {
-      throw new BadRequestException('User already exists with this email');
+      throw new ConflictException('User already exists with this email maina');
     }
 
     // Check OTP restrictions (rate limiting, locks, etc.)
@@ -94,17 +96,24 @@ export class AuthService {
     };
   }
 
-  /**
-   * Verify OTP and complete registration
-   */
   async verifyOtp(verifyOtpDto: VerifyOtpDto) {
+    const UserDataSchema = z.object({
+      name: z.string(),
+      email: z.email(),
+      country: z.string(),
+      password: z.string().optional(),
+    });
+
+    type UserDataType = z.infer<typeof UserDataSchema>;
     const { email, OTP } = verifyOtpDto;
 
     // Verify OTP
     await this.otpService.verifyOTP(email, OTP);
 
     // Get user data from Redis
-    const userDataStr = await this.redisService.get(`user_data:${email}`);
+    const userDataStr: string | null = await this.redisService.get(
+      `user_data:${email}`,
+    );
 
     if (!userDataStr) {
       throw new BadRequestException(
@@ -112,8 +121,8 @@ export class AuthService {
       );
     }
 
-    const userData: UserData = JSON.parse(userDataStr);
-
+    const parsed: unknown = JSON.parse(userDataStr);
+    const userData: UserDataType = UserDataSchema.parse(parsed);
     // Create user in database
     await this.prisma.user.create({
       data: userData,
@@ -130,18 +139,20 @@ export class AuthService {
     };
   }
 
-  /**
-   * Login user
-   */
   async login(loginDto: LoginDto) {
-    const { email, password } = loginDto;
+    const LoginSchema = z.object({
+      email: z.email('Please provide an email'),
+      password: z.string('Password is required'),
+    });
+
+    const { email, password } = LoginSchema.parse(loginDto);
 
     // Find user
     const user = await this.prisma.user.findUnique({
       where: { email },
     });
 
-    if (!user || !user.password) {
+    if (!user?.password) {
       throw new UnauthorizedException('Invalid email or password');
     }
 
@@ -167,7 +178,7 @@ export class AuthService {
   /**
    * Refresh access token
    */
-  async refreshToken(refreshToken: string) {
+  refreshToken(refreshToken: string) {
     const payload = this.tokenService.verifyRefreshToken(refreshToken);
 
     if (!payload) {

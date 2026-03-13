@@ -1,8 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import * as nodemailer from 'nodemailer';
 import * as ejs from 'ejs';
 import * as path from 'node:path';
+import * as fs from 'node:fs';
+import { EnvConfig } from 'src/config/env.config';
+import nodemailer from 'nodemailer';
+import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 export interface OTPEmailData {
   name: string;
@@ -20,17 +23,17 @@ export interface ForgetPasswordEmailData {
 
 @Injectable()
 export class MailService {
-  private readonly transporter: nodemailer.Transporter;
+  private readonly transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo>;
   private readonly logger = new Logger(MailService.name);
   private readonly fromEmail: string;
 
-  constructor(private readonly configService: ConfigService) {
+  constructor(private readonly configService: ConfigService<EnvConfig, true>) {
     this.transporter = nodemailer.createTransport({
       host: this.configService.get<string>('SMTP_HOST'),
       port: this.configService.get<number>('SMTP_PORT'),
       auth: {
         user: this.configService.get<string>('SMTP_USER'),
-        pass: this.configService.get<string>('SMTP_PASSWORD'),
+        pass: this.configService.get<string>('SMTP_PASS'),
       },
     });
 
@@ -90,11 +93,21 @@ export class MailService {
   /**
    * Render an EJS template
    */
-  private async renderTemplate(
+  private renderTemplate(
     templateName: string,
     data: Record<string, any>,
   ): Promise<string> {
-    const templatePath = path.join(__dirname, 'templates', templateName);
+    const runtimePath = path.join(__dirname, 'templates', templateName);
+    const sourcePath = path.join(
+      process.cwd(),
+      'src',
+      'shared',
+      'mail',
+      'templates',
+      templateName,
+    );
+    const templatePath = fs.existsSync(runtimePath) ? runtimePath : sourcePath;
+
     return ejs.renderFile(templatePath, data);
   }
 }

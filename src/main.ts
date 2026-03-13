@@ -5,9 +5,10 @@ import morgan from 'morgan';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Enable CORS
+  app.setGlobalPrefix('api');
+
   app.enableCors({
-    origin: process.env.CORS_ORIGIN || '*', // Allow all origins in development, specific origins in production
+    origin: true,
     credentials: true, // Allow cookies and authorization headers
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
