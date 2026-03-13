@@ -20,7 +20,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
   ) {
     super({
       jwtFromRequest: (req: Request) => {
-        return req?.cookies?.refresh_token || null;
+        return (req?.cookies?.refresh_token as string) || null;
       },
       ignoreExpiration: false,
       secretOrKey:
@@ -30,10 +30,10 @@ export class JwtRefreshStrategy extends PassportStrategy(
   }
 
   async validate(req: Request, payload: JwtPayload) {
-    const refreshToken = req?.cookies?.refresh_token;
+    const refreshToken = req?.cookies?.refresh_token as string;
 
     if (!refreshToken) {
-      throw new UnauthorizedException('No refresh token provided');
+      throw new UnauthorizedException('No refresh token provided kwa strategy');
     }
 
     const user = await this.prisma.user.findUnique({
@@ -45,6 +45,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
     }
 
     // Return user without password
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...userWithoutPassword } = user;
     return { ...userWithoutPassword, refreshToken };
   }

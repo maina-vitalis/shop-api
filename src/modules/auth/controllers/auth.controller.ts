@@ -6,8 +6,9 @@ import {
   Res,
   HttpCode,
   HttpStatus,
+  Req,
 } from '@nestjs/common';
-import { type Response } from 'express';
+import { type Request, type Response } from 'express';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthService } from '../services';
 import {
@@ -60,7 +61,7 @@ export class AuthController {
     response.cookie('refresh_token', result.refreshToken, {
       httpOnly: true,
       sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      maxAge: 30 * 1000, // 7 days
       // secure: true, // Uncomment in production with HTTPS
     });
 
@@ -68,7 +69,7 @@ export class AuthController {
     response.cookie('access_token', result.accessToken, {
       httpOnly: true,
       sameSite: 'strict',
-      maxAge: 15 * 60 * 1000, // 15 minutes
+      maxAge: 10 * 1000, // 15 minutes
       // secure: true, // Uncomment in production with HTTPS
     });
 
@@ -85,11 +86,13 @@ export class AuthController {
   @ApiOperation({ summary: 'Refresh access token' })
   @ApiResponse({ status: 200, description: 'New access token generated' })
   @ApiResponse({ status: 401, description: 'Invalid refresh token' })
-  refreshToken(@Res({ passthrough: true }) response: Response) {
+  refreshToken(@Req() request: Request) {
     // This will be handled by the JwtRefreshStrategy
     // The refresh token is extracted from cookies in the strategy
-    const cookies = response.req?.cookies as Record<string, string> | undefined;
-    const refreshToken = cookies?.['refresh_token'];
+    const cookies = request.cookies;
+    const refreshToken = cookies?.['refresh_token'] as string;
+
+    console.log(refreshToken);
 
     if (!refreshToken) {
       return {
@@ -134,6 +137,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Logged out successfully' })
   logout(@Res({ passthrough: true }) response: Response) {
     response.clearCookie('refresh_token');
+    response.clearCookie('access_token');
     return {
       status: 'success',
       message: 'Logged out successfully',

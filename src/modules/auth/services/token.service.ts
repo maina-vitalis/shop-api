@@ -49,8 +49,11 @@ export class TokenService {
       return this.jwtService.verify<TokenPayload>(token, {
         secret: this.configService.get<string>('ACCESS_TOKEN_SECRET'),
       });
-    } catch (error) {
-      this.logger.warn('Access token verification failed');
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : 'Unknown verification error';
+
+      this.logger.warn(`Access token verification failed: ${message}`);
       return null;
     }
   }
@@ -63,8 +66,11 @@ export class TokenService {
       return this.jwtService.verify<TokenPayload>(token, {
         secret: this.configService.get<string>('REFRESH_TOKEN_SECRET'),
       });
-    } catch (error) {
-      this.logger.warn('Refresh token verification failed');
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : 'Unknown verification error';
+
+      this.logger.warn(`Refresh token verification failed: ${message}`);
       return null;
     }
   }
