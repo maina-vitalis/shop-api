@@ -5,11 +5,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { PrismaModule } from './modules/prisma/prisma.module';
-import { AuthModule } from './modules/auth/auth.module';
-import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from './modules/auth';
+import { UsersModule } from './modules/users';
 
-import { RedisModule } from './shared/redis/redis.module';
-import { MailModule } from './shared/mail/mail.module';
+import { RedisModule } from './shared/redis';
+import { MailModule } from './shared/mail';
 
 // Application configurations
 import { validateEnv } from './config/env.config';
