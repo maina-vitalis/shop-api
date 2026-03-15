@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.4.1
- * Query Engine version: 55ae170b1ced7fc6ed07a15f110549408c501bb3
+ * Prisma Client JS version: 7.5.0
+ * Query Engine version: 280c870be64f457428992c43c1f6d557fab6e29e
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.4.1",
-  engine: "55ae170b1ced7fc6ed07a15f110549408c501bb3"
+  client: "7.5.0",
+  engine: "280c870be64f457428992c43c1f6d557fab6e29e"
 }
 
 /**
@@ -385,7 +385,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  Image: 'Image'
+  BuyerProfile: 'BuyerProfile',
+  VendorProfile: 'VendorProfile',
+  AdminProfile: 'AdminProfile'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -401,7 +403,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "image"
+    modelProps: "user" | "buyerProfile" | "vendorProfile" | "adminProfile"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -479,77 +481,225 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Image: {
-      payload: Prisma.$ImagePayload<ExtArgs>
-      fields: Prisma.ImageFieldRefs
+    BuyerProfile: {
+      payload: Prisma.$BuyerProfilePayload<ExtArgs>
+      fields: Prisma.BuyerProfileFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.ImageFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImagePayload> | null
+          args: Prisma.BuyerProfileFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerProfilePayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.ImageFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImagePayload>
+          args: Prisma.BuyerProfileFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerProfilePayload>
         }
         findFirst: {
-          args: Prisma.ImageFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImagePayload> | null
+          args: Prisma.BuyerProfileFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerProfilePayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.ImageFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImagePayload>
+          args: Prisma.BuyerProfileFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerProfilePayload>
         }
         findMany: {
-          args: Prisma.ImageFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImagePayload>[]
+          args: Prisma.BuyerProfileFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerProfilePayload>[]
         }
         create: {
-          args: Prisma.ImageCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImagePayload>
+          args: Prisma.BuyerProfileCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerProfilePayload>
         }
         createMany: {
-          args: Prisma.ImageCreateManyArgs<ExtArgs>
+          args: Prisma.BuyerProfileCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.ImageCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImagePayload>[]
+          args: Prisma.BuyerProfileCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerProfilePayload>[]
         }
         delete: {
-          args: Prisma.ImageDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImagePayload>
+          args: Prisma.BuyerProfileDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerProfilePayload>
         }
         update: {
-          args: Prisma.ImageUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImagePayload>
+          args: Prisma.BuyerProfileUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerProfilePayload>
         }
         deleteMany: {
-          args: Prisma.ImageDeleteManyArgs<ExtArgs>
+          args: Prisma.BuyerProfileDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.ImageUpdateManyArgs<ExtArgs>
+          args: Prisma.BuyerProfileUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.ImageUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImagePayload>[]
+          args: Prisma.BuyerProfileUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerProfilePayload>[]
         }
         upsert: {
-          args: Prisma.ImageUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ImagePayload>
+          args: Prisma.BuyerProfileUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerProfilePayload>
         }
         aggregate: {
-          args: Prisma.ImageAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateImage>
+          args: Prisma.BuyerProfileAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBuyerProfile>
         }
         groupBy: {
-          args: Prisma.ImageGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ImageGroupByOutputType>[]
+          args: Prisma.BuyerProfileGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BuyerProfileGroupByOutputType>[]
         }
         count: {
-          args: Prisma.ImageCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ImageCountAggregateOutputType> | number
+          args: Prisma.BuyerProfileCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BuyerProfileCountAggregateOutputType> | number
+        }
+      }
+    }
+    VendorProfile: {
+      payload: Prisma.$VendorProfilePayload<ExtArgs>
+      fields: Prisma.VendorProfileFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.VendorProfileFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorProfilePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.VendorProfileFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorProfilePayload>
+        }
+        findFirst: {
+          args: Prisma.VendorProfileFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorProfilePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.VendorProfileFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorProfilePayload>
+        }
+        findMany: {
+          args: Prisma.VendorProfileFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorProfilePayload>[]
+        }
+        create: {
+          args: Prisma.VendorProfileCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorProfilePayload>
+        }
+        createMany: {
+          args: Prisma.VendorProfileCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.VendorProfileCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorProfilePayload>[]
+        }
+        delete: {
+          args: Prisma.VendorProfileDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorProfilePayload>
+        }
+        update: {
+          args: Prisma.VendorProfileUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorProfilePayload>
+        }
+        deleteMany: {
+          args: Prisma.VendorProfileDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.VendorProfileUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.VendorProfileUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorProfilePayload>[]
+        }
+        upsert: {
+          args: Prisma.VendorProfileUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VendorProfilePayload>
+        }
+        aggregate: {
+          args: Prisma.VendorProfileAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateVendorProfile>
+        }
+        groupBy: {
+          args: Prisma.VendorProfileGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VendorProfileGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.VendorProfileCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VendorProfileCountAggregateOutputType> | number
+        }
+      }
+    }
+    AdminProfile: {
+      payload: Prisma.$AdminProfilePayload<ExtArgs>
+      fields: Prisma.AdminProfileFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AdminProfileFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminProfilePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AdminProfileFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminProfilePayload>
+        }
+        findFirst: {
+          args: Prisma.AdminProfileFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminProfilePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AdminProfileFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminProfilePayload>
+        }
+        findMany: {
+          args: Prisma.AdminProfileFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminProfilePayload>[]
+        }
+        create: {
+          args: Prisma.AdminProfileCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminProfilePayload>
+        }
+        createMany: {
+          args: Prisma.AdminProfileCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AdminProfileCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminProfilePayload>[]
+        }
+        delete: {
+          args: Prisma.AdminProfileDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminProfilePayload>
+        }
+        update: {
+          args: Prisma.AdminProfileUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminProfilePayload>
+        }
+        deleteMany: {
+          args: Prisma.AdminProfileDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AdminProfileUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AdminProfileUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminProfilePayload>[]
+        }
+        upsert: {
+          args: Prisma.AdminProfileUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminProfilePayload>
+        }
+        aggregate: {
+          args: Prisma.AdminProfileAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAdminProfile>
+        }
+        groupBy: {
+          args: Prisma.AdminProfileGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdminProfileGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AdminProfileCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdminProfileCountAggregateOutputType> | number
         }
       }
     }
@@ -595,10 +745,9 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  country: 'country',
   email: 'email',
   password: 'password',
-  following: 'following',
+  role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -606,14 +755,37 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const ImageScalarFieldEnum = {
+export const BuyerProfileScalarFieldEnum = {
   id: 'id',
-  file_id: 'file_id',
-  url: 'url',
-  usersId: 'usersId'
+  avatar: 'avatar',
+  phone: 'phone',
+  address: 'address',
+  userId: 'userId'
 } as const
 
-export type ImageScalarFieldEnum = (typeof ImageScalarFieldEnum)[keyof typeof ImageScalarFieldEnum]
+export type BuyerProfileScalarFieldEnum = (typeof BuyerProfileScalarFieldEnum)[keyof typeof BuyerProfileScalarFieldEnum]
+
+
+export const VendorProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  storeName: 'storeName',
+  description: 'description',
+  isVerified: 'isVerified',
+  bankAccount: 'bankAccount'
+} as const
+
+export type VendorProfileScalarFieldEnum = (typeof VendorProfileScalarFieldEnum)[keyof typeof VendorProfileScalarFieldEnum]
+
+
+export const AdminProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  department: 'department',
+  accessLevel: 'accessLevel'
+} as const
+
+export type AdminProfileScalarFieldEnum = (typeof AdminProfileScalarFieldEnum)[keyof typeof AdminProfileScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -661,6 +833,20 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
+ * Reference to a field of type 'Role'
+ */
+export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
+    
+
+
+/**
+ * Reference to a field of type 'Role[]'
+ */
+export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -675,6 +861,13 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -685,6 +878,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 /**
@@ -783,7 +990,9 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
-  image?: Prisma.ImageOmit
+  buyerProfile?: Prisma.BuyerProfileOmit
+  vendorProfile?: Prisma.VendorProfileOmit
+  adminProfile?: Prisma.AdminProfileOmit
 }
 
 /* Types for Logging */

@@ -52,7 +52,9 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Image: 'Image'
+  BuyerProfile: 'BuyerProfile',
+  VendorProfile: 'VendorProfile',
+  AdminProfile: 'AdminProfile'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -74,10 +76,9 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  country: 'country',
   email: 'email',
   password: 'password',
-  following: 'following',
+  role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -85,14 +86,37 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const ImageScalarFieldEnum = {
+export const BuyerProfileScalarFieldEnum = {
   id: 'id',
-  file_id: 'file_id',
-  url: 'url',
-  usersId: 'usersId'
+  avatar: 'avatar',
+  phone: 'phone',
+  address: 'address',
+  userId: 'userId'
 } as const
 
-export type ImageScalarFieldEnum = (typeof ImageScalarFieldEnum)[keyof typeof ImageScalarFieldEnum]
+export type BuyerProfileScalarFieldEnum = (typeof BuyerProfileScalarFieldEnum)[keyof typeof BuyerProfileScalarFieldEnum]
+
+
+export const VendorProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  storeName: 'storeName',
+  description: 'description',
+  isVerified: 'isVerified',
+  bankAccount: 'bankAccount'
+} as const
+
+export type VendorProfileScalarFieldEnum = (typeof VendorProfileScalarFieldEnum)[keyof typeof VendorProfileScalarFieldEnum]
+
+
+export const AdminProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  department: 'department',
+  accessLevel: 'accessLevel'
+} as const
+
+export type AdminProfileScalarFieldEnum = (typeof AdminProfileScalarFieldEnum)[keyof typeof AdminProfileScalarFieldEnum]
 
 
 export const SortOrder = {

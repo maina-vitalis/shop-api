@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 
 interface TokenPayload {
   userId: string;
+  role: string;
 }
 
 @Injectable()
@@ -18,9 +19,9 @@ export class TokenService {
   /**
    * Generate access token (short-lived)
    */
-  generateAccessToken(userId: string): string {
+  generateAccessToken(userId: string, role: string): string {
     return this.jwtService.sign(
-      { userId },
+      { userId, role },
       {
         secret: this.configService.get<string>('ACCESS_TOKEN_SECRET'),
         expiresIn: '15m',

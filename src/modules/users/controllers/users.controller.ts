@@ -14,9 +14,9 @@ import {
   ApiBearerAuth,
 } from '@nestjs/swagger';
 import { UsersService } from '../services/users.service';
-import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
-import { CurrentUser } from '../../auth/decorators/current-user.decorator';
-import { UpdateUserDto } from '../dto/update-user.dto';
+import { JwtAuthGuard, CurrentUser } from '../../auth';
+import { UpdateUserDto } from '../dto';
+import { type User } from 'src/generated/prisma/client';
 
 @ApiTags('Users')
 @ApiBearerAuth()
@@ -28,7 +28,7 @@ export class UsersController {
   @Get('me')
   @ApiOperation({ summary: 'Get current user profile' })
   @ApiResponse({ status: 200, description: 'User profile retrieved' })
-  async getProfile(@CurrentUser() user: any) {
+  async getProfile(@CurrentUser() user: User) {
     return this.usersService.findById(user.id);
   }
 
@@ -36,7 +36,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Update current user profile' })
   @ApiResponse({ status: 200, description: 'Profile updated' })
   async updateProfile(
-    @CurrentUser() user: any,
+    @CurrentUser() user: User,
     @Body() updateUserDto: UpdateUserDto,
   ) {
     return this.usersService.update(user.id, updateUserDto);
@@ -60,7 +60,7 @@ export class UsersController {
   @Delete('me')
   @ApiOperation({ summary: 'Delete current user account' })
   @ApiResponse({ status: 200, description: 'Account deleted' })
-  async deleteAccount(@CurrentUser() user: any) {
+  async deleteAccount(@CurrentUser() user: User) {
     return this.usersService.delete(user.id);
   }
 }

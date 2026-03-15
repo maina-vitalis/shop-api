@@ -22,13 +22,6 @@ import { RedisService } from '../../../shared/redis';
 import { ConfigService } from '@nestjs/config';
 import z from 'zod';
 
-interface UserData {
-  name: string;
-  email: string;
-  country: string;
-  password?: string;
-}
-
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
@@ -46,7 +39,7 @@ export class AuthService {
    * Register a new user - sends OTP for verification
    */
   async register(registerDto: RegisterDto) {
-    const { name, email, password, confirmPassword, country } = registerDto;
+    const { name, email, password, confirmPassword } = registerDto;
 
     // Validate passwords match
     if (password !== confirmPassword) {
@@ -69,16 +62,15 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(password, 12);
 
     // Create user data object
-    const userData: UserData = {
-      email,
+    const userData = {
       name,
-      country,
+      email,
       password: hashedPassword,
     };
 
     // Track OTP requests and send OTP
     await this.otpService.trackOTPRequests(email);
-    await this.otpService.generateAndSendOTP(email, name);
+    await this.otpService.generateAndSendOTP(email);
 
     // Save user data temporarily in Redis
     await this.redisService.set(
@@ -100,7 +92,6 @@ export class AuthService {
     const UserDataSchema = z.object({
       name: z.string(),
       email: z.email(),
-      country: z.string(),
       password: z.string().optional(),
     });
 
@@ -164,7 +155,10 @@ export class AuthService {
     }
 
     // Generate tokens
-    const accessToken = this.tokenService.generateAccessToken(user.id);
+    const accessToken = this.tokenService.generateAccessToken(
+      user.id,
+      user.role,
+    );
     const refreshToken = this.tokenService.generateRefreshToken(user.id);
 
     this.logger.log(`User ${email} logged in successfully`);
@@ -185,7 +179,10 @@ export class AuthService {
       throw new UnauthorizedException('Invalid refresh token');
     }
 
-    const accessToken = this.tokenService.generateAccessToken(payload.userId);
+    const accessToken = this.tokenService.generateAccessToken(
+      payload.userId,
+      payload.role,
+    );
 
     return { accessToken };
   }
@@ -232,7 +229,6 @@ export class AuthService {
     // Send email
     await this.mailService.sendForgetPasswordEmail({
       email: user.email,
-      name: user.name,
       resetUrl,
       expiry: '1 hour',
     });
@@ -269,7 +265,7 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(newPassword, 12);
 
     // Update user password
-    await this.prisma.user.update({
+    const user = await this.prisma.user.update({
       where: { id: userId },
       data: { password: hashedPassword },
     });
@@ -278,7 +274,10 @@ export class AuthService {
     await this.redisService.del(`reset:${hashedToken}`);
 
     // Generate new access token for automatic login
-    const accessToken = this.tokenService.generateAccessToken(userId);
+    const accessToken = this.tokenService.generateAccessToken(
+      user.id,
+      user.role,
+    );
 
     this.logger.log(`Password reset successful for user ${userId}`);
 

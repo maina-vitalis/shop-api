@@ -16,7 +16,11 @@ export class UsersService {
   async findById(id: string) {
     const user = await this.prisma.user.findUnique({
       where: { id },
-      include: { avatar: true },
+      include: {
+        buyerProfile: true,
+        adminProfile: true,
+        vendorProfile: true,
+      },
     });
 
     if (!user) {
@@ -35,7 +39,6 @@ export class UsersService {
   async findByEmail(email: string) {
     return this.prisma.user.findUnique({
       where: { email },
-      include: { avatar: true },
     });
   }
 
@@ -43,9 +46,7 @@ export class UsersService {
    * Find all users
    */
   async findAll() {
-    const users = await this.prisma.user.findMany({
-      include: { avatar: true },
-    });
+    const users = await this.prisma.user.findMany({});
 
     // Exclude passwords from response
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -72,7 +73,6 @@ export class UsersService {
     const updatedUser = await this.prisma.user.update({
       where: { id },
       data: updateUserDto,
-      include: { avatar: true },
     });
 
     this.logger.log(`User ${id} updated`);

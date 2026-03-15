@@ -1,7 +1,7 @@
 import { Injectable, BadRequestException, Logger } from '@nestjs/common';
 import * as crypto from 'crypto';
-import { RedisService } from '../../../shared/redis/redis.service';
-import { MailService } from '../../../shared/mail/mail.service';
+import { RedisService } from '../../../shared/redis';
+import { MailService } from '../../../shared/mail';
 
 const INVALID_OTP_LOCK_DURATION_SECONDS = 15 * 60; // 15 minutes
 const MAX_INVALID_OTP_ATTEMPTS = 5;
@@ -79,14 +79,13 @@ export class OtpService {
   /**
    * Generate and send OTP
    */
-  async generateAndSendOTP(email: string, name: string): Promise<string> {
+  async generateAndSendOTP(email: string): Promise<string> {
     const OTP = crypto.randomInt(10000, 99999).toString();
 
     this.logger.debug(`Generated OTP for ${email}: ${OTP}`);
 
     // Send OTP email
     await this.mailService.sendOTPEmail({
-      name,
       email,
       OTP,
       expiry: '5 minutes',

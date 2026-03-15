@@ -8,14 +8,12 @@ import nodemailer from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 export interface OTPEmailData {
-  name: string;
   email: string;
   OTP: string;
   expiry?: string;
 }
 
 export interface ForgetPasswordEmailData {
-  name: string;
   email: string;
   resetUrl: string;
   expiry: string;

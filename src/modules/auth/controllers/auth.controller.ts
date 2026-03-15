@@ -55,13 +55,12 @@ export class AuthController {
     @Body() loginDto: LoginDto,
     @Res({ passthrough: true }) response: Response,
   ) {
-    console.log('login in');
     const result = await this.authService.login(loginDto);
     // Set refresh token as HTTP-only cookie
     response.cookie('refresh_token', result.refreshToken, {
       httpOnly: true,
       sameSite: 'strict',
-      maxAge: 30 * 1000, // 7 days
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       // secure: true, // Uncomment in production with HTTPS
     });
 
@@ -69,14 +68,13 @@ export class AuthController {
     response.cookie('access_token', result.accessToken, {
       httpOnly: true,
       sameSite: 'strict',
-      maxAge: 10 * 1000, // 15 minutes
+      maxAge: 15 * 60 * 1000, // 15 minutes
       // secure: true, // Uncomment in production with HTTPS
     });
 
     return {
       status: 'success',
       message: 'Login successful',
-      accessToken: result.accessToken,
     };
   }
 
@@ -86,7 +84,10 @@ export class AuthController {
   @ApiOperation({ summary: 'Refresh access token' })
   @ApiResponse({ status: 200, description: 'New access token generated' })
   @ApiResponse({ status: 401, description: 'Invalid refresh token' })
-  refreshToken(@Req() request: Request) {
+  refreshToken(
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ) {
     // This will be handled by the JwtRefreshStrategy
     // The refresh token is extracted from cookies in the strategy
     const cookies = request.cookies;
@@ -102,8 +103,15 @@ export class AuthController {
     }
 
     const result = this.authService.refreshToken(refreshToken);
+    response.cookie('access_token', result.accessToken, {
+      httpOnly: true,
+      sameSite: 'strict',
+      maxAge: 15 * 60 * 1000, // 15 minutes
+      // secure: true, // Uncomment in production with HTTPS
+    });
     return {
-      accessToken: result.accessToken,
+      status: 'success',
+      message: 'Login successful',
     };
   }
 
