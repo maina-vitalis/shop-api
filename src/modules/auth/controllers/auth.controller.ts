@@ -25,6 +25,9 @@ import { Public } from '../decorators';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  private readonly isProduction = process.env.NODE_ENV === 'production';
+  private readonly cookieSameSite = this.isProduction ? 'none' : 'lax';
+
   @Public()
   @Post('register')
   @HttpCode(HttpStatus.OK)
@@ -59,17 +62,17 @@ export class AuthController {
     // Set refresh token as HTTP-only cookie
     response.cookie('refresh_token', result.refreshToken, {
       httpOnly: true,
-      sameSite: 'none',
+      sameSite: this.cookieSameSite,
+      secure: this.isProduction,
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-      secure: true, // Uncomment in production with HTTPS
     });
 
     // Set access_token token as HTTP-only cookie
     response.cookie('access_token', result.accessToken, {
       httpOnly: true,
-      sameSite: 'none',
+      sameSite: this.cookieSameSite,
+      secure: this.isProduction,
       maxAge: 15 * 60 * 1000, // 15 minutes
-      secure: true, // Uncomment in production with HTTPS
     });
 
     return {
@@ -105,9 +108,9 @@ export class AuthController {
     const result = this.authService.refreshToken(refreshToken);
     response.cookie('access_token', result.accessToken, {
       httpOnly: true,
-      sameSite: 'none',
+      sameSite: this.cookieSameSite,
+      secure: this.isProduction,
       maxAge: 15 * 60 * 1000, // 15 minutes
-      secure: true, // Uncomment in production with HTTPS
     });
     return {
       status: 'success',
@@ -144,8 +147,14 @@ export class AuthController {
   @ApiOperation({ summary: 'Logout user' })
   @ApiResponse({ status: 200, description: 'Logged out successfully' })
   logout(@Res({ passthrough: true }) response: Response) {
-    response.clearCookie('refresh_token');
-    response.clearCookie('access_token');
+    const clearCookieOptions = {
+      sameSite: this.cookieSameSite,
+      secure: this.isProduction,
+      path: '/',
+    } as const;
+
+    response.clearCookie('refresh_token', clearCookieOptions);
+    response.clearCookie('access_token', clearCookieOptions);
     return {
       status: 'success',
       message: 'Logged out successfully',
