@@ -96,8 +96,6 @@ export class AuthController {
     const cookies = request.cookies;
     const refreshToken = cookies?.['refresh_token'] as string;
 
-    console.log(refreshToken);
-
     if (!refreshToken) {
       return {
         statusCode: 401,
