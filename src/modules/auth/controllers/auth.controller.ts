@@ -59,17 +59,17 @@ export class AuthController {
     // Set refresh token as HTTP-only cookie
     response.cookie('refresh_token', result.refreshToken, {
       httpOnly: true,
-      sameSite: 'none',
+      sameSite: 'strict',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-      // secure: true, // Uncomment in production with HTTPS
+      secure: true, // Uncomment in production with HTTPS
     });
 
     // Set access_token token as HTTP-only cookie
     response.cookie('access_token', result.accessToken, {
       httpOnly: true,
-      sameSite: 'none',
+      sameSite: 'strict',
       maxAge: 15 * 60 * 1000, // 15 minutes
-      // secure: true, // Uncomment in production with HTTPS
+      secure: true, // Uncomment in production with HTTPS
     });
 
     return {
@@ -105,9 +105,9 @@ export class AuthController {
     const result = this.authService.refreshToken(refreshToken);
     response.cookie('access_token', result.accessToken, {
       httpOnly: true,
-      sameSite: 'none',
+      sameSite: 'strict',
       maxAge: 15 * 60 * 1000, // 15 minutes
-      // secure: true, // Uncomment in production with HTTPS
+      secure: true, // Uncomment in production with HTTPS
     });
     return {
       status: 'success',
