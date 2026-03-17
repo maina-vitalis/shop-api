@@ -78,6 +78,7 @@ export class AuthController {
     return {
       status: 'success',
       message: 'Login successful',
+      user: result.userWithoutPassword,
     };
   }
 

@@ -141,6 +141,11 @@ export class AuthService {
     // Find user
     const user = await this.prisma.user.findUnique({
       where: { email },
+      include: {
+        adminProfile: true,
+        buyerProfile: true,
+        vendorProfile: true,
+      },
     });
 
     if (!user?.password) {
@@ -154,6 +159,10 @@ export class AuthService {
       throw new UnauthorizedException('Invalid email or password');
     }
 
+    //remove the password from the user
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password: removedPassword, ...userWithoutPassword } = user;
+
     // Generate tokens
     const accessToken = this.tokenService.generateAccessToken(
       user.id,
@@ -166,6 +175,7 @@ export class AuthService {
     return {
       accessToken,
       refreshToken,
+      userWithoutPassword,
     };
   }
 
