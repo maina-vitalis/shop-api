@@ -138,8 +138,34 @@ export type StoreScalarFieldEnum = (typeof StoreScalarFieldEnum)[keyof typeof St
 export const ProductScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  price: 'price',
+  shortDescription: 'shortDescription',
   description: 'description',
+  sku: 'sku',
+  barcode: 'barcode',
+  category: 'category',
+  brand: 'brand',
+  tags: 'tags',
+  status: 'status',
+  images: 'images',
+  price: 'price',
+  compareAtPrice: 'compareAtPrice',
+  costPerItem: 'costPerItem',
+  stock: 'stock',
+  lowStockThreshold: 'lowStockThreshold',
+  trackInventory: 'trackInventory',
+  requiresShipping: 'requiresShipping',
+  weight: 'weight',
+  weightUnit: 'weightUnit',
+  length: 'length',
+  width: 'width',
+  height: 'height',
+  dimensionUnit: 'dimensionUnit',
+  variantOptions: 'variantOptions',
+  seoTitle: 'seoTitle',
+  seoDescription: 'seoDescription',
+  seoSlug: 'seoSlug',
+  isFeatured: 'isFeatured',
+  isDigital: 'isDigital',
   storeId: 'storeId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -156,6 +182,13 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -170,4 +203,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

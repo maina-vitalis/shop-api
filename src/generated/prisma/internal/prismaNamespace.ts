@@ -955,8 +955,34 @@ export type StoreScalarFieldEnum = (typeof StoreScalarFieldEnum)[keyof typeof St
 export const ProductScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  price: 'price',
+  shortDescription: 'shortDescription',
   description: 'description',
+  sku: 'sku',
+  barcode: 'barcode',
+  category: 'category',
+  brand: 'brand',
+  tags: 'tags',
+  status: 'status',
+  images: 'images',
+  price: 'price',
+  compareAtPrice: 'compareAtPrice',
+  costPerItem: 'costPerItem',
+  stock: 'stock',
+  lowStockThreshold: 'lowStockThreshold',
+  trackInventory: 'trackInventory',
+  requiresShipping: 'requiresShipping',
+  weight: 'weight',
+  weightUnit: 'weightUnit',
+  length: 'length',
+  width: 'width',
+  height: 'height',
+  dimensionUnit: 'dimensionUnit',
+  variantOptions: 'variantOptions',
+  seoTitle: 'seoTitle',
+  seoDescription: 'seoDescription',
+  seoSlug: 'seoSlug',
+  isFeatured: 'isFeatured',
+  isDigital: 'isDigital',
   storeId: 'storeId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -973,6 +999,13 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -987,6 +1020,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -1055,6 +1097,76 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ProductStatus'
+ */
+export type EnumProductStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ProductStatus[]'
+ */
+export type ListEnumProductStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal'
+ */
+export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal[]'
+ */
+export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+/**
+ * Reference to a field of type 'WeightUnit'
+ */
+export type EnumWeightUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WeightUnit'>
+    
+
+
+/**
+ * Reference to a field of type 'WeightUnit[]'
+ */
+export type ListEnumWeightUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WeightUnit[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DimensionUnit'
+ */
+export type EnumDimensionUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DimensionUnit'>
+    
+
+
+/**
+ * Reference to a field of type 'DimensionUnit[]'
+ */
+export type ListEnumDimensionUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DimensionUnit[]'>
     
 
 

@@ -16,3 +16,30 @@ export const Role = {
 } as const
 
 export type Role = (typeof Role)[keyof typeof Role]
+
+
+export const ProductStatus = {
+  ACTIVE: 'ACTIVE',
+  DRAFT: 'DRAFT',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type ProductStatus = (typeof ProductStatus)[keyof typeof ProductStatus]
+
+
+export const WeightUnit = {
+  KG: 'KG',
+  G: 'G',
+  LB: 'LB',
+  OZ: 'OZ'
+} as const
+
+export type WeightUnit = (typeof WeightUnit)[keyof typeof WeightUnit]
+
+
+export const DimensionUnit = {
+  CM: 'CM',
+  IN: 'IN'
+} as const
+
+export type DimensionUnit = (typeof DimensionUnit)[keyof typeof DimensionUnit]
