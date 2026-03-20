@@ -27,7 +27,6 @@ export type AggregateVendorProfile = {
 export type VendorProfileMinAggregateOutputType = {
   id: string | null
   userId: string | null
-  storeName: string | null
   description: string | null
   isVerified: boolean | null
   bankAccount: string | null
@@ -36,7 +35,6 @@ export type VendorProfileMinAggregateOutputType = {
 export type VendorProfileMaxAggregateOutputType = {
   id: string | null
   userId: string | null
-  storeName: string | null
   description: string | null
   isVerified: boolean | null
   bankAccount: string | null
@@ -45,7 +43,6 @@ export type VendorProfileMaxAggregateOutputType = {
 export type VendorProfileCountAggregateOutputType = {
   id: number
   userId: number
-  storeName: number
   description: number
   isVerified: number
   bankAccount: number
@@ -56,7 +53,6 @@ export type VendorProfileCountAggregateOutputType = {
 export type VendorProfileMinAggregateInputType = {
   id?: true
   userId?: true
-  storeName?: true
   description?: true
   isVerified?: true
   bankAccount?: true
@@ -65,7 +61,6 @@ export type VendorProfileMinAggregateInputType = {
 export type VendorProfileMaxAggregateInputType = {
   id?: true
   userId?: true
-  storeName?: true
   description?: true
   isVerified?: true
   bankAccount?: true
@@ -74,7 +69,6 @@ export type VendorProfileMaxAggregateInputType = {
 export type VendorProfileCountAggregateInputType = {
   id?: true
   userId?: true
-  storeName?: true
   description?: true
   isVerified?: true
   bankAccount?: true
@@ -156,7 +150,6 @@ export type VendorProfileGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 export type VendorProfileGroupByOutputType = {
   id: string
   userId: string
-  storeName: string
   description: string | null
   isVerified: boolean
   bankAccount: string | null
@@ -186,27 +179,26 @@ export type VendorProfileWhereInput = {
   NOT?: Prisma.VendorProfileWhereInput | Prisma.VendorProfileWhereInput[]
   id?: Prisma.StringFilter<"VendorProfile"> | string
   userId?: Prisma.StringFilter<"VendorProfile"> | string
-  storeName?: Prisma.StringFilter<"VendorProfile"> | string
   description?: Prisma.StringNullableFilter<"VendorProfile"> | string | null
   isVerified?: Prisma.BoolFilter<"VendorProfile"> | boolean
   bankAccount?: Prisma.StringNullableFilter<"VendorProfile"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  store?: Prisma.StoreListRelationFilter
 }
 
 export type VendorProfileOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  storeName?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   bankAccount?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  store?: Prisma.StoreOrderByRelationAggregateInput
 }
 
 export type VendorProfileWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   userId?: string
-  storeName?: string
   AND?: Prisma.VendorProfileWhereInput | Prisma.VendorProfileWhereInput[]
   OR?: Prisma.VendorProfileWhereInput[]
   NOT?: Prisma.VendorProfileWhereInput | Prisma.VendorProfileWhereInput[]
@@ -214,12 +206,12 @@ export type VendorProfileWhereUniqueInput = Prisma.AtLeast<{
   isVerified?: Prisma.BoolFilter<"VendorProfile"> | boolean
   bankAccount?: Prisma.StringNullableFilter<"VendorProfile"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "userId" | "storeName">
+  store?: Prisma.StoreListRelationFilter
+}, "id" | "userId">
 
 export type VendorProfileOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  storeName?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   bankAccount?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -234,7 +226,6 @@ export type VendorProfileScalarWhereWithAggregatesInput = {
   NOT?: Prisma.VendorProfileScalarWhereWithAggregatesInput | Prisma.VendorProfileScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"VendorProfile"> | string
   userId?: Prisma.StringWithAggregatesFilter<"VendorProfile"> | string
-  storeName?: Prisma.StringWithAggregatesFilter<"VendorProfile"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"VendorProfile"> | string | null
   isVerified?: Prisma.BoolWithAggregatesFilter<"VendorProfile"> | boolean
   bankAccount?: Prisma.StringNullableWithAggregatesFilter<"VendorProfile"> | string | null
@@ -242,44 +233,43 @@ export type VendorProfileScalarWhereWithAggregatesInput = {
 
 export type VendorProfileCreateInput = {
   id?: string
-  storeName: string
   description?: string | null
   isVerified?: boolean
   bankAccount?: string | null
   user: Prisma.UserCreateNestedOneWithoutVendorProfileInput
+  store?: Prisma.StoreCreateNestedManyWithoutVendorProfileInput
 }
 
 export type VendorProfileUncheckedCreateInput = {
   id?: string
   userId: string
-  storeName: string
   description?: string | null
   isVerified?: boolean
   bankAccount?: string | null
+  store?: Prisma.StoreUncheckedCreateNestedManyWithoutVendorProfileInput
 }
 
 export type VendorProfileUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  storeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutVendorProfileNestedInput
+  store?: Prisma.StoreUpdateManyWithoutVendorProfileNestedInput
 }
 
 export type VendorProfileUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  storeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  store?: Prisma.StoreUncheckedUpdateManyWithoutVendorProfileNestedInput
 }
 
 export type VendorProfileCreateManyInput = {
   id?: string
   userId: string
-  storeName: string
   description?: string | null
   isVerified?: boolean
   bankAccount?: string | null
@@ -287,7 +277,6 @@ export type VendorProfileCreateManyInput = {
 
 export type VendorProfileUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  storeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -296,7 +285,6 @@ export type VendorProfileUpdateManyMutationInput = {
 export type VendorProfileUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  storeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -310,7 +298,6 @@ export type VendorProfileNullableScalarRelationFilter = {
 export type VendorProfileCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  storeName?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   bankAccount?: Prisma.SortOrder
@@ -319,7 +306,6 @@ export type VendorProfileCountOrderByAggregateInput = {
 export type VendorProfileMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  storeName?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   bankAccount?: Prisma.SortOrder
@@ -328,7 +314,6 @@ export type VendorProfileMaxOrderByAggregateInput = {
 export type VendorProfileMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  storeName?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   bankAccount?: Prisma.SortOrder
@@ -370,20 +355,36 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
+export type VendorProfileCreateNestedOneWithoutStoreInput = {
+  create?: Prisma.XOR<Prisma.VendorProfileCreateWithoutStoreInput, Prisma.VendorProfileUncheckedCreateWithoutStoreInput>
+  connectOrCreate?: Prisma.VendorProfileCreateOrConnectWithoutStoreInput
+  connect?: Prisma.VendorProfileWhereUniqueInput
+}
+
+export type VendorProfileUpdateOneWithoutStoreNestedInput = {
+  create?: Prisma.XOR<Prisma.VendorProfileCreateWithoutStoreInput, Prisma.VendorProfileUncheckedCreateWithoutStoreInput>
+  connectOrCreate?: Prisma.VendorProfileCreateOrConnectWithoutStoreInput
+  upsert?: Prisma.VendorProfileUpsertWithoutStoreInput
+  disconnect?: Prisma.VendorProfileWhereInput | boolean
+  delete?: Prisma.VendorProfileWhereInput | boolean
+  connect?: Prisma.VendorProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.VendorProfileUpdateToOneWithWhereWithoutStoreInput, Prisma.VendorProfileUpdateWithoutStoreInput>, Prisma.VendorProfileUncheckedUpdateWithoutStoreInput>
+}
+
 export type VendorProfileCreateWithoutUserInput = {
   id?: string
-  storeName: string
   description?: string | null
   isVerified?: boolean
   bankAccount?: string | null
+  store?: Prisma.StoreCreateNestedManyWithoutVendorProfileInput
 }
 
 export type VendorProfileUncheckedCreateWithoutUserInput = {
   id?: string
-  storeName: string
   description?: string | null
   isVerified?: boolean
   bankAccount?: string | null
+  store?: Prisma.StoreUncheckedCreateNestedManyWithoutVendorProfileInput
 }
 
 export type VendorProfileCreateOrConnectWithoutUserInput = {
@@ -404,36 +405,113 @@ export type VendorProfileUpdateToOneWithWhereWithoutUserInput = {
 
 export type VendorProfileUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  storeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  store?: Prisma.StoreUpdateManyWithoutVendorProfileNestedInput
 }
 
 export type VendorProfileUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  storeName?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  store?: Prisma.StoreUncheckedUpdateManyWithoutVendorProfileNestedInput
+}
+
+export type VendorProfileCreateWithoutStoreInput = {
+  id?: string
+  description?: string | null
+  isVerified?: boolean
+  bankAccount?: string | null
+  user: Prisma.UserCreateNestedOneWithoutVendorProfileInput
+}
+
+export type VendorProfileUncheckedCreateWithoutStoreInput = {
+  id?: string
+  userId: string
+  description?: string | null
+  isVerified?: boolean
+  bankAccount?: string | null
+}
+
+export type VendorProfileCreateOrConnectWithoutStoreInput = {
+  where: Prisma.VendorProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.VendorProfileCreateWithoutStoreInput, Prisma.VendorProfileUncheckedCreateWithoutStoreInput>
+}
+
+export type VendorProfileUpsertWithoutStoreInput = {
+  update: Prisma.XOR<Prisma.VendorProfileUpdateWithoutStoreInput, Prisma.VendorProfileUncheckedUpdateWithoutStoreInput>
+  create: Prisma.XOR<Prisma.VendorProfileCreateWithoutStoreInput, Prisma.VendorProfileUncheckedCreateWithoutStoreInput>
+  where?: Prisma.VendorProfileWhereInput
+}
+
+export type VendorProfileUpdateToOneWithWhereWithoutStoreInput = {
+  where?: Prisma.VendorProfileWhereInput
+  data: Prisma.XOR<Prisma.VendorProfileUpdateWithoutStoreInput, Prisma.VendorProfileUncheckedUpdateWithoutStoreInput>
+}
+
+export type VendorProfileUpdateWithoutStoreInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutVendorProfileNestedInput
+}
+
+export type VendorProfileUncheckedUpdateWithoutStoreInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
+
+/**
+ * Count Type VendorProfileCountOutputType
+ */
+
+export type VendorProfileCountOutputType = {
+  store: number
+}
+
+export type VendorProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  store?: boolean | VendorProfileCountOutputTypeCountStoreArgs
+}
+
+/**
+ * VendorProfileCountOutputType without action
+ */
+export type VendorProfileCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the VendorProfileCountOutputType
+   */
+  select?: Prisma.VendorProfileCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * VendorProfileCountOutputType without action
+ */
+export type VendorProfileCountOutputTypeCountStoreArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StoreWhereInput
+}
 
 
 export type VendorProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  storeName?: boolean
   description?: boolean
   isVerified?: boolean
   bankAccount?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  store?: boolean | Prisma.VendorProfile$storeArgs<ExtArgs>
+  _count?: boolean | Prisma.VendorProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["vendorProfile"]>
 
 export type VendorProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  storeName?: boolean
   description?: boolean
   isVerified?: boolean
   bankAccount?: boolean
@@ -443,7 +521,6 @@ export type VendorProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types
 export type VendorProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  storeName?: boolean
   description?: boolean
   isVerified?: boolean
   bankAccount?: boolean
@@ -453,15 +530,16 @@ export type VendorProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
 export type VendorProfileSelectScalar = {
   id?: boolean
   userId?: boolean
-  storeName?: boolean
   description?: boolean
   isVerified?: boolean
   bankAccount?: boolean
 }
 
-export type VendorProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "storeName" | "description" | "isVerified" | "bankAccount", ExtArgs["result"]["vendorProfile"]>
+export type VendorProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "description" | "isVerified" | "bankAccount", ExtArgs["result"]["vendorProfile"]>
 export type VendorProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  store?: boolean | Prisma.VendorProfile$storeArgs<ExtArgs>
+  _count?: boolean | Prisma.VendorProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type VendorProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -474,11 +552,11 @@ export type $VendorProfilePayload<ExtArgs extends runtime.Types.Extensions.Inter
   name: "VendorProfile"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    store: Prisma.$StorePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
-    storeName: string
     description: string | null
     isVerified: boolean
     bankAccount: string | null
@@ -877,6 +955,7 @@ readonly fields: VendorProfileFieldRefs;
 export interface Prisma__VendorProfileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  store<T extends Prisma.VendorProfile$storeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VendorProfile$storeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -908,7 +987,6 @@ export interface Prisma__VendorProfileClient<T, Null = never, ExtArgs extends ru
 export interface VendorProfileFieldRefs {
   readonly id: Prisma.FieldRef<"VendorProfile", 'String'>
   readonly userId: Prisma.FieldRef<"VendorProfile", 'String'>
-  readonly storeName: Prisma.FieldRef<"VendorProfile", 'String'>
   readonly description: Prisma.FieldRef<"VendorProfile", 'String'>
   readonly isVerified: Prisma.FieldRef<"VendorProfile", 'Boolean'>
   readonly bankAccount: Prisma.FieldRef<"VendorProfile", 'String'>
@@ -1310,6 +1388,30 @@ export type VendorProfileDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many VendorProfiles to delete.
    */
   limit?: number
+}
+
+/**
+ * VendorProfile.store
+ */
+export type VendorProfile$storeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Store
+   */
+  select?: Prisma.StoreSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Store
+   */
+  omit?: Prisma.StoreOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoreInclude<ExtArgs> | null
+  where?: Prisma.StoreWhereInput
+  orderBy?: Prisma.StoreOrderByWithRelationInput | Prisma.StoreOrderByWithRelationInput[]
+  cursor?: Prisma.StoreWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StoreScalarFieldEnum | Prisma.StoreScalarFieldEnum[]
 }
 
 /**

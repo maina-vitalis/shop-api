@@ -2,7 +2,6 @@ import { Injectable, NotFoundException, Logger } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { UpdateUserDto } from '../dto';
 import { User } from 'src/generated/prisma/client';
-// Removed Prisma type dependency that was causing build issues
 
 @Injectable()
 export class UsersService {

@@ -13,6 +13,7 @@ import { MailModule } from './shared/mail';
 
 // Application configurations
 import { validateEnv } from './config/env.config';
+import { CloudinaryModule } from './shared/cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { validateEnv } from './config/env.config';
     MailModule,
     AuthModule,
     UsersModule,
+    CloudinaryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

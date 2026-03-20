@@ -37,7 +37,7 @@ model VendorProfile {
   id          String  @id @default(uuid())
   userId      String  @unique
   user        User    @relation(fields: [userId], references: [id])
-  storeName   String  @unique
+  store       Store[]
   description String?
   isVerified  Boolean @default(false)
   bankAccount String?
@@ -49,6 +49,32 @@ model AdminProfile {
   user        User   @relation(fields: [userId], references: [id])
   department  String // e.g., "Finance", "Compliance"
   accessLevel Int    @default(1)
+}
+
+model Store {
+  id              String         @id @default(uuid())
+  name            String
+  description     String
+  vendorProfileId String?
+  logoUrl         String?
+  bannerUrl       String
+  isVerified      Boolean        @default(false)
+  vendorProfile   VendorProfile? @relation(fields: [vendorProfileId], references: [id])
+  products        Product[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+//products
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  price       String
+  description String
+  storeId     String
+  store       Store    @relation(fields: [storeId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 // ENUMS

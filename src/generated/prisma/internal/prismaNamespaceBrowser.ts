@@ -54,7 +54,9 @@ export const ModelName = {
   User: 'User',
   BuyerProfile: 'BuyerProfile',
   VendorProfile: 'VendorProfile',
-  AdminProfile: 'AdminProfile'
+  AdminProfile: 'AdminProfile',
+  Store: 'Store',
+  Product: 'Product'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -100,7 +102,6 @@ export type BuyerProfileScalarFieldEnum = (typeof BuyerProfileScalarFieldEnum)[k
 export const VendorProfileScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  storeName: 'storeName',
   description: 'description',
   isVerified: 'isVerified',
   bankAccount: 'bankAccount'
@@ -117,6 +118,34 @@ export const AdminProfileScalarFieldEnum = {
 } as const
 
 export type AdminProfileScalarFieldEnum = (typeof AdminProfileScalarFieldEnum)[keyof typeof AdminProfileScalarFieldEnum]
+
+
+export const StoreScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  vendorProfileId: 'vendorProfileId',
+  logoUrl: 'logoUrl',
+  bannerUrl: 'bannerUrl',
+  isVerified: 'isVerified',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StoreScalarFieldEnum = (typeof StoreScalarFieldEnum)[keyof typeof StoreScalarFieldEnum]
+
+
+export const ProductScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  price: 'price',
+  description: 'description',
+  storeId: 'storeId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
 
 
 export const SortOrder = {

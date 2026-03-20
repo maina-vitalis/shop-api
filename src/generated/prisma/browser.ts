@@ -37,3 +37,13 @@ export type VendorProfile = Prisma.VendorProfileModel
  * 
  */
 export type AdminProfile = Prisma.AdminProfileModel
+/**
+ * Model Store
+ * 
+ */
+export type Store = Prisma.StoreModel
+/**
+ * Model Product
+ * 
+ */
+export type Product = Prisma.ProductModel
