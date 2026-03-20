@@ -20,15 +20,64 @@ export type ProductModel = runtime.Types.Result.DefaultSelection<Prisma.$Product
 
 export type AggregateProduct = {
   _count: ProductCountAggregateOutputType | null
+  _avg: ProductAvgAggregateOutputType | null
+  _sum: ProductSumAggregateOutputType | null
   _min: ProductMinAggregateOutputType | null
   _max: ProductMaxAggregateOutputType | null
+}
+
+export type ProductAvgAggregateOutputType = {
+  price: runtime.Decimal | null
+  compareAtPrice: runtime.Decimal | null
+  costPerItem: runtime.Decimal | null
+  stock: number | null
+  lowStockThreshold: number | null
+  weight: runtime.Decimal | null
+  length: runtime.Decimal | null
+  width: runtime.Decimal | null
+  height: runtime.Decimal | null
+}
+
+export type ProductSumAggregateOutputType = {
+  price: runtime.Decimal | null
+  compareAtPrice: runtime.Decimal | null
+  costPerItem: runtime.Decimal | null
+  stock: number | null
+  lowStockThreshold: number | null
+  weight: runtime.Decimal | null
+  length: runtime.Decimal | null
+  width: runtime.Decimal | null
+  height: runtime.Decimal | null
 }
 
 export type ProductMinAggregateOutputType = {
   id: string | null
   name: string | null
-  price: string | null
+  shortDescription: string | null
   description: string | null
+  sku: string | null
+  barcode: string | null
+  category: string | null
+  brand: string | null
+  status: $Enums.ProductStatus | null
+  price: runtime.Decimal | null
+  compareAtPrice: runtime.Decimal | null
+  costPerItem: runtime.Decimal | null
+  stock: number | null
+  lowStockThreshold: number | null
+  trackInventory: boolean | null
+  requiresShipping: boolean | null
+  weight: runtime.Decimal | null
+  weightUnit: $Enums.WeightUnit | null
+  length: runtime.Decimal | null
+  width: runtime.Decimal | null
+  height: runtime.Decimal | null
+  dimensionUnit: $Enums.DimensionUnit | null
+  seoTitle: string | null
+  seoDescription: string | null
+  seoSlug: string | null
+  isFeatured: boolean | null
+  isDigital: boolean | null
   storeId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -37,8 +86,31 @@ export type ProductMinAggregateOutputType = {
 export type ProductMaxAggregateOutputType = {
   id: string | null
   name: string | null
-  price: string | null
+  shortDescription: string | null
   description: string | null
+  sku: string | null
+  barcode: string | null
+  category: string | null
+  brand: string | null
+  status: $Enums.ProductStatus | null
+  price: runtime.Decimal | null
+  compareAtPrice: runtime.Decimal | null
+  costPerItem: runtime.Decimal | null
+  stock: number | null
+  lowStockThreshold: number | null
+  trackInventory: boolean | null
+  requiresShipping: boolean | null
+  weight: runtime.Decimal | null
+  weightUnit: $Enums.WeightUnit | null
+  length: runtime.Decimal | null
+  width: runtime.Decimal | null
+  height: runtime.Decimal | null
+  dimensionUnit: $Enums.DimensionUnit | null
+  seoTitle: string | null
+  seoDescription: string | null
+  seoSlug: string | null
+  isFeatured: boolean | null
+  isDigital: boolean | null
   storeId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -47,8 +119,34 @@ export type ProductMaxAggregateOutputType = {
 export type ProductCountAggregateOutputType = {
   id: number
   name: number
-  price: number
+  shortDescription: number
   description: number
+  sku: number
+  barcode: number
+  category: number
+  brand: number
+  tags: number
+  status: number
+  images: number
+  price: number
+  compareAtPrice: number
+  costPerItem: number
+  stock: number
+  lowStockThreshold: number
+  trackInventory: number
+  requiresShipping: number
+  weight: number
+  weightUnit: number
+  length: number
+  width: number
+  height: number
+  dimensionUnit: number
+  variantOptions: number
+  seoTitle: number
+  seoDescription: number
+  seoSlug: number
+  isFeatured: number
+  isDigital: number
   storeId: number
   createdAt: number
   updatedAt: number
@@ -56,11 +154,58 @@ export type ProductCountAggregateOutputType = {
 }
 
 
+export type ProductAvgAggregateInputType = {
+  price?: true
+  compareAtPrice?: true
+  costPerItem?: true
+  stock?: true
+  lowStockThreshold?: true
+  weight?: true
+  length?: true
+  width?: true
+  height?: true
+}
+
+export type ProductSumAggregateInputType = {
+  price?: true
+  compareAtPrice?: true
+  costPerItem?: true
+  stock?: true
+  lowStockThreshold?: true
+  weight?: true
+  length?: true
+  width?: true
+  height?: true
+}
+
 export type ProductMinAggregateInputType = {
   id?: true
   name?: true
-  price?: true
+  shortDescription?: true
   description?: true
+  sku?: true
+  barcode?: true
+  category?: true
+  brand?: true
+  status?: true
+  price?: true
+  compareAtPrice?: true
+  costPerItem?: true
+  stock?: true
+  lowStockThreshold?: true
+  trackInventory?: true
+  requiresShipping?: true
+  weight?: true
+  weightUnit?: true
+  length?: true
+  width?: true
+  height?: true
+  dimensionUnit?: true
+  seoTitle?: true
+  seoDescription?: true
+  seoSlug?: true
+  isFeatured?: true
+  isDigital?: true
   storeId?: true
   createdAt?: true
   updatedAt?: true
@@ -69,8 +214,31 @@ export type ProductMinAggregateInputType = {
 export type ProductMaxAggregateInputType = {
   id?: true
   name?: true
-  price?: true
+  shortDescription?: true
   description?: true
+  sku?: true
+  barcode?: true
+  category?: true
+  brand?: true
+  status?: true
+  price?: true
+  compareAtPrice?: true
+  costPerItem?: true
+  stock?: true
+  lowStockThreshold?: true
+  trackInventory?: true
+  requiresShipping?: true
+  weight?: true
+  weightUnit?: true
+  length?: true
+  width?: true
+  height?: true
+  dimensionUnit?: true
+  seoTitle?: true
+  seoDescription?: true
+  seoSlug?: true
+  isFeatured?: true
+  isDigital?: true
   storeId?: true
   createdAt?: true
   updatedAt?: true
@@ -79,8 +247,34 @@ export type ProductMaxAggregateInputType = {
 export type ProductCountAggregateInputType = {
   id?: true
   name?: true
-  price?: true
+  shortDescription?: true
   description?: true
+  sku?: true
+  barcode?: true
+  category?: true
+  brand?: true
+  tags?: true
+  status?: true
+  images?: true
+  price?: true
+  compareAtPrice?: true
+  costPerItem?: true
+  stock?: true
+  lowStockThreshold?: true
+  trackInventory?: true
+  requiresShipping?: true
+  weight?: true
+  weightUnit?: true
+  length?: true
+  width?: true
+  height?: true
+  dimensionUnit?: true
+  variantOptions?: true
+  seoTitle?: true
+  seoDescription?: true
+  seoSlug?: true
+  isFeatured?: true
+  isDigital?: true
   storeId?: true
   createdAt?: true
   updatedAt?: true
@@ -125,6 +319,18 @@ export type ProductAggregateArgs<ExtArgs extends runtime.Types.Extensions.Intern
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: ProductAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: ProductSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: ProductMinAggregateInputType
@@ -155,6 +361,8 @@ export type ProductGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   _count?: ProductCountAggregateInputType | true
+  _avg?: ProductAvgAggregateInputType
+  _sum?: ProductSumAggregateInputType
   _min?: ProductMinAggregateInputType
   _max?: ProductMaxAggregateInputType
 }
@@ -162,12 +370,40 @@ export type ProductGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type ProductGroupByOutputType = {
   id: string
   name: string
-  price: string
+  shortDescription: string | null
   description: string
+  sku: string | null
+  barcode: string | null
+  category: string
+  brand: string | null
+  tags: string[]
+  status: $Enums.ProductStatus
+  images: runtime.JsonValue
+  price: runtime.Decimal
+  compareAtPrice: runtime.Decimal | null
+  costPerItem: runtime.Decimal | null
+  stock: number | null
+  lowStockThreshold: number | null
+  trackInventory: boolean
+  requiresShipping: boolean
+  weight: runtime.Decimal | null
+  weightUnit: $Enums.WeightUnit
+  length: runtime.Decimal | null
+  width: runtime.Decimal | null
+  height: runtime.Decimal | null
+  dimensionUnit: $Enums.DimensionUnit
+  variantOptions: runtime.JsonValue
+  seoTitle: string | null
+  seoDescription: string | null
+  seoSlug: string | null
+  isFeatured: boolean
+  isDigital: boolean
   storeId: string
   createdAt: Date
   updatedAt: Date
   _count: ProductCountAggregateOutputType | null
+  _avg: ProductAvgAggregateOutputType | null
+  _sum: ProductSumAggregateOutputType | null
   _min: ProductMinAggregateOutputType | null
   _max: ProductMaxAggregateOutputType | null
 }
@@ -193,8 +429,34 @@ export type ProductWhereInput = {
   NOT?: Prisma.ProductWhereInput | Prisma.ProductWhereInput[]
   id?: Prisma.StringFilter<"Product"> | string
   name?: Prisma.StringFilter<"Product"> | string
-  price?: Prisma.StringFilter<"Product"> | string
+  shortDescription?: Prisma.StringNullableFilter<"Product"> | string | null
   description?: Prisma.StringFilter<"Product"> | string
+  sku?: Prisma.StringNullableFilter<"Product"> | string | null
+  barcode?: Prisma.StringNullableFilter<"Product"> | string | null
+  category?: Prisma.StringFilter<"Product"> | string
+  brand?: Prisma.StringNullableFilter<"Product"> | string | null
+  tags?: Prisma.StringNullableListFilter<"Product">
+  status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
+  images?: Prisma.JsonFilter<"Product">
+  price?: Prisma.DecimalFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  compareAtPrice?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  costPerItem?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  stock?: Prisma.IntNullableFilter<"Product"> | number | null
+  lowStockThreshold?: Prisma.IntNullableFilter<"Product"> | number | null
+  trackInventory?: Prisma.BoolFilter<"Product"> | boolean
+  requiresShipping?: Prisma.BoolFilter<"Product"> | boolean
+  weight?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightUnit?: Prisma.EnumWeightUnitFilter<"Product"> | $Enums.WeightUnit
+  length?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  width?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  height?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dimensionUnit?: Prisma.EnumDimensionUnitFilter<"Product"> | $Enums.DimensionUnit
+  variantOptions?: Prisma.JsonFilter<"Product">
+  seoTitle?: Prisma.StringNullableFilter<"Product"> | string | null
+  seoDescription?: Prisma.StringNullableFilter<"Product"> | string | null
+  seoSlug?: Prisma.StringNullableFilter<"Product"> | string | null
+  isFeatured?: Prisma.BoolFilter<"Product"> | boolean
+  isDigital?: Prisma.BoolFilter<"Product"> | boolean
   storeId?: Prisma.StringFilter<"Product"> | string
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
@@ -204,8 +466,34 @@ export type ProductWhereInput = {
 export type ProductOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  price?: Prisma.SortOrder
+  shortDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrder
+  sku?: Prisma.SortOrderInput | Prisma.SortOrder
+  barcode?: Prisma.SortOrderInput | Prisma.SortOrder
+  category?: Prisma.SortOrder
+  brand?: Prisma.SortOrderInput | Prisma.SortOrder
+  tags?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  images?: Prisma.SortOrder
+  price?: Prisma.SortOrder
+  compareAtPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  costPerItem?: Prisma.SortOrderInput | Prisma.SortOrder
+  stock?: Prisma.SortOrderInput | Prisma.SortOrder
+  lowStockThreshold?: Prisma.SortOrderInput | Prisma.SortOrder
+  trackInventory?: Prisma.SortOrder
+  requiresShipping?: Prisma.SortOrder
+  weight?: Prisma.SortOrderInput | Prisma.SortOrder
+  weightUnit?: Prisma.SortOrder
+  length?: Prisma.SortOrderInput | Prisma.SortOrder
+  width?: Prisma.SortOrderInput | Prisma.SortOrder
+  height?: Prisma.SortOrderInput | Prisma.SortOrder
+  dimensionUnit?: Prisma.SortOrder
+  variantOptions?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoSlug?: Prisma.SortOrderInput | Prisma.SortOrder
+  isFeatured?: Prisma.SortOrder
+  isDigital?: Prisma.SortOrder
   storeId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -214,29 +502,84 @@ export type ProductOrderByWithRelationInput = {
 
 export type ProductWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  storeId_sku?: Prisma.ProductStoreIdSkuCompoundUniqueInput
   AND?: Prisma.ProductWhereInput | Prisma.ProductWhereInput[]
   OR?: Prisma.ProductWhereInput[]
   NOT?: Prisma.ProductWhereInput | Prisma.ProductWhereInput[]
   name?: Prisma.StringFilter<"Product"> | string
-  price?: Prisma.StringFilter<"Product"> | string
+  shortDescription?: Prisma.StringNullableFilter<"Product"> | string | null
   description?: Prisma.StringFilter<"Product"> | string
+  sku?: Prisma.StringNullableFilter<"Product"> | string | null
+  barcode?: Prisma.StringNullableFilter<"Product"> | string | null
+  category?: Prisma.StringFilter<"Product"> | string
+  brand?: Prisma.StringNullableFilter<"Product"> | string | null
+  tags?: Prisma.StringNullableListFilter<"Product">
+  status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
+  images?: Prisma.JsonFilter<"Product">
+  price?: Prisma.DecimalFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  compareAtPrice?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  costPerItem?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  stock?: Prisma.IntNullableFilter<"Product"> | number | null
+  lowStockThreshold?: Prisma.IntNullableFilter<"Product"> | number | null
+  trackInventory?: Prisma.BoolFilter<"Product"> | boolean
+  requiresShipping?: Prisma.BoolFilter<"Product"> | boolean
+  weight?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightUnit?: Prisma.EnumWeightUnitFilter<"Product"> | $Enums.WeightUnit
+  length?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  width?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  height?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dimensionUnit?: Prisma.EnumDimensionUnitFilter<"Product"> | $Enums.DimensionUnit
+  variantOptions?: Prisma.JsonFilter<"Product">
+  seoTitle?: Prisma.StringNullableFilter<"Product"> | string | null
+  seoDescription?: Prisma.StringNullableFilter<"Product"> | string | null
+  seoSlug?: Prisma.StringNullableFilter<"Product"> | string | null
+  isFeatured?: Prisma.BoolFilter<"Product"> | boolean
+  isDigital?: Prisma.BoolFilter<"Product"> | boolean
   storeId?: Prisma.StringFilter<"Product"> | string
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   store?: Prisma.XOR<Prisma.StoreScalarRelationFilter, Prisma.StoreWhereInput>
-}, "id">
+}, "id" | "storeId_sku">
 
 export type ProductOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  price?: Prisma.SortOrder
+  shortDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrder
+  sku?: Prisma.SortOrderInput | Prisma.SortOrder
+  barcode?: Prisma.SortOrderInput | Prisma.SortOrder
+  category?: Prisma.SortOrder
+  brand?: Prisma.SortOrderInput | Prisma.SortOrder
+  tags?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  images?: Prisma.SortOrder
+  price?: Prisma.SortOrder
+  compareAtPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  costPerItem?: Prisma.SortOrderInput | Prisma.SortOrder
+  stock?: Prisma.SortOrderInput | Prisma.SortOrder
+  lowStockThreshold?: Prisma.SortOrderInput | Prisma.SortOrder
+  trackInventory?: Prisma.SortOrder
+  requiresShipping?: Prisma.SortOrder
+  weight?: Prisma.SortOrderInput | Prisma.SortOrder
+  weightUnit?: Prisma.SortOrder
+  length?: Prisma.SortOrderInput | Prisma.SortOrder
+  width?: Prisma.SortOrderInput | Prisma.SortOrder
+  height?: Prisma.SortOrderInput | Prisma.SortOrder
+  dimensionUnit?: Prisma.SortOrder
+  variantOptions?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoSlug?: Prisma.SortOrderInput | Prisma.SortOrder
+  isFeatured?: Prisma.SortOrder
+  isDigital?: Prisma.SortOrder
   storeId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ProductCountOrderByAggregateInput
+  _avg?: Prisma.ProductAvgOrderByAggregateInput
   _max?: Prisma.ProductMaxOrderByAggregateInput
   _min?: Prisma.ProductMinOrderByAggregateInput
+  _sum?: Prisma.ProductSumOrderByAggregateInput
 }
 
 export type ProductScalarWhereWithAggregatesInput = {
@@ -245,8 +588,34 @@ export type ProductScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ProductScalarWhereWithAggregatesInput | Prisma.ProductScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Product"> | string
   name?: Prisma.StringWithAggregatesFilter<"Product"> | string
-  price?: Prisma.StringWithAggregatesFilter<"Product"> | string
+  shortDescription?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
   description?: Prisma.StringWithAggregatesFilter<"Product"> | string
+  sku?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  barcode?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  category?: Prisma.StringWithAggregatesFilter<"Product"> | string
+  brand?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  tags?: Prisma.StringNullableListFilter<"Product">
+  status?: Prisma.EnumProductStatusWithAggregatesFilter<"Product"> | $Enums.ProductStatus
+  images?: Prisma.JsonWithAggregatesFilter<"Product">
+  price?: Prisma.DecimalWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  compareAtPrice?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  costPerItem?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  stock?: Prisma.IntNullableWithAggregatesFilter<"Product"> | number | null
+  lowStockThreshold?: Prisma.IntNullableWithAggregatesFilter<"Product"> | number | null
+  trackInventory?: Prisma.BoolWithAggregatesFilter<"Product"> | boolean
+  requiresShipping?: Prisma.BoolWithAggregatesFilter<"Product"> | boolean
+  weight?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightUnit?: Prisma.EnumWeightUnitWithAggregatesFilter<"Product"> | $Enums.WeightUnit
+  length?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  width?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  height?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dimensionUnit?: Prisma.EnumDimensionUnitWithAggregatesFilter<"Product"> | $Enums.DimensionUnit
+  variantOptions?: Prisma.JsonWithAggregatesFilter<"Product">
+  seoTitle?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  seoDescription?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  seoSlug?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  isFeatured?: Prisma.BoolWithAggregatesFilter<"Product"> | boolean
+  isDigital?: Prisma.BoolWithAggregatesFilter<"Product"> | boolean
   storeId?: Prisma.StringWithAggregatesFilter<"Product"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string
@@ -255,8 +624,34 @@ export type ProductScalarWhereWithAggregatesInput = {
 export type ProductCreateInput = {
   id?: string
   name: string
-  price: string
+  shortDescription?: string | null
   description: string
+  sku?: string | null
+  barcode?: string | null
+  category: string
+  brand?: string | null
+  tags?: Prisma.ProductCreatetagsInput | string[]
+  status?: $Enums.ProductStatus
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  compareAtPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  costPerItem?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  stock?: number | null
+  lowStockThreshold?: number | null
+  trackInventory?: boolean
+  requiresShipping?: boolean
+  weight?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightUnit?: $Enums.WeightUnit
+  length?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  width?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  height?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dimensionUnit?: $Enums.DimensionUnit
+  variantOptions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  seoTitle?: string | null
+  seoDescription?: string | null
+  seoSlug?: string | null
+  isFeatured?: boolean
+  isDigital?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   store: Prisma.StoreCreateNestedOneWithoutProductsInput
@@ -265,8 +660,34 @@ export type ProductCreateInput = {
 export type ProductUncheckedCreateInput = {
   id?: string
   name: string
-  price: string
+  shortDescription?: string | null
   description: string
+  sku?: string | null
+  barcode?: string | null
+  category: string
+  brand?: string | null
+  tags?: Prisma.ProductCreatetagsInput | string[]
+  status?: $Enums.ProductStatus
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  compareAtPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  costPerItem?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  stock?: number | null
+  lowStockThreshold?: number | null
+  trackInventory?: boolean
+  requiresShipping?: boolean
+  weight?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightUnit?: $Enums.WeightUnit
+  length?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  width?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  height?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dimensionUnit?: $Enums.DimensionUnit
+  variantOptions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  seoTitle?: string | null
+  seoDescription?: string | null
+  seoSlug?: string | null
+  isFeatured?: boolean
+  isDigital?: boolean
   storeId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -275,8 +696,34 @@ export type ProductUncheckedCreateInput = {
 export type ProductUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.StringFieldUpdateOperationsInput | string
+  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.ProductUpdatetagsInput | string[]
+  status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  compareAtPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  costPerItem?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  lowStockThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trackInventory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weight?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightUnit?: Prisma.EnumWeightUnitFieldUpdateOperationsInput | $Enums.WeightUnit
+  length?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  width?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  height?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dimensionUnit?: Prisma.EnumDimensionUnitFieldUpdateOperationsInput | $Enums.DimensionUnit
+  variantOptions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDigital?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   store?: Prisma.StoreUpdateOneRequiredWithoutProductsNestedInput
@@ -285,8 +732,34 @@ export type ProductUpdateInput = {
 export type ProductUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.StringFieldUpdateOperationsInput | string
+  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.ProductUpdatetagsInput | string[]
+  status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  compareAtPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  costPerItem?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  lowStockThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trackInventory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weight?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightUnit?: Prisma.EnumWeightUnitFieldUpdateOperationsInput | $Enums.WeightUnit
+  length?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  width?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  height?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dimensionUnit?: Prisma.EnumDimensionUnitFieldUpdateOperationsInput | $Enums.DimensionUnit
+  variantOptions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDigital?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -295,8 +768,34 @@ export type ProductUncheckedUpdateInput = {
 export type ProductCreateManyInput = {
   id?: string
   name: string
-  price: string
+  shortDescription?: string | null
   description: string
+  sku?: string | null
+  barcode?: string | null
+  category: string
+  brand?: string | null
+  tags?: Prisma.ProductCreatetagsInput | string[]
+  status?: $Enums.ProductStatus
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  compareAtPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  costPerItem?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  stock?: number | null
+  lowStockThreshold?: number | null
+  trackInventory?: boolean
+  requiresShipping?: boolean
+  weight?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightUnit?: $Enums.WeightUnit
+  length?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  width?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  height?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dimensionUnit?: $Enums.DimensionUnit
+  variantOptions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  seoTitle?: string | null
+  seoDescription?: string | null
+  seoSlug?: string | null
+  isFeatured?: boolean
+  isDigital?: boolean
   storeId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -305,8 +804,34 @@ export type ProductCreateManyInput = {
 export type ProductUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.StringFieldUpdateOperationsInput | string
+  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.ProductUpdatetagsInput | string[]
+  status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  compareAtPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  costPerItem?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  lowStockThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trackInventory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weight?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightUnit?: Prisma.EnumWeightUnitFieldUpdateOperationsInput | $Enums.WeightUnit
+  length?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  width?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  height?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dimensionUnit?: Prisma.EnumDimensionUnitFieldUpdateOperationsInput | $Enums.DimensionUnit
+  variantOptions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDigital?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -314,8 +839,34 @@ export type ProductUpdateManyMutationInput = {
 export type ProductUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.StringFieldUpdateOperationsInput | string
+  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.ProductUpdatetagsInput | string[]
+  status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  compareAtPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  costPerItem?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  lowStockThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trackInventory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weight?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightUnit?: Prisma.EnumWeightUnitFieldUpdateOperationsInput | $Enums.WeightUnit
+  length?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  width?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  height?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dimensionUnit?: Prisma.EnumDimensionUnitFieldUpdateOperationsInput | $Enums.DimensionUnit
+  variantOptions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDigital?: Prisma.BoolFieldUpdateOperationsInput | boolean
   storeId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -331,21 +882,95 @@ export type ProductOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
+export type ProductStoreIdSkuCompoundUniqueInput = {
+  storeId: string
+  sku: string
+}
+
 export type ProductCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  price?: Prisma.SortOrder
+  shortDescription?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  sku?: Prisma.SortOrder
+  barcode?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  brand?: Prisma.SortOrder
+  tags?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  images?: Prisma.SortOrder
+  price?: Prisma.SortOrder
+  compareAtPrice?: Prisma.SortOrder
+  costPerItem?: Prisma.SortOrder
+  stock?: Prisma.SortOrder
+  lowStockThreshold?: Prisma.SortOrder
+  trackInventory?: Prisma.SortOrder
+  requiresShipping?: Prisma.SortOrder
+  weight?: Prisma.SortOrder
+  weightUnit?: Prisma.SortOrder
+  length?: Prisma.SortOrder
+  width?: Prisma.SortOrder
+  height?: Prisma.SortOrder
+  dimensionUnit?: Prisma.SortOrder
+  variantOptions?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrder
+  seoDescription?: Prisma.SortOrder
+  seoSlug?: Prisma.SortOrder
+  isFeatured?: Prisma.SortOrder
+  isDigital?: Prisma.SortOrder
   storeId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
+export type ProductAvgOrderByAggregateInput = {
+  price?: Prisma.SortOrder
+  compareAtPrice?: Prisma.SortOrder
+  costPerItem?: Prisma.SortOrder
+  stock?: Prisma.SortOrder
+  lowStockThreshold?: Prisma.SortOrder
+  weight?: Prisma.SortOrder
+  length?: Prisma.SortOrder
+  width?: Prisma.SortOrder
+  height?: Prisma.SortOrder
+}
+
 export type ProductMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  price?: Prisma.SortOrder
+  shortDescription?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  sku?: Prisma.SortOrder
+  barcode?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  brand?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  price?: Prisma.SortOrder
+  compareAtPrice?: Prisma.SortOrder
+  costPerItem?: Prisma.SortOrder
+  stock?: Prisma.SortOrder
+  lowStockThreshold?: Prisma.SortOrder
+  trackInventory?: Prisma.SortOrder
+  requiresShipping?: Prisma.SortOrder
+  weight?: Prisma.SortOrder
+  weightUnit?: Prisma.SortOrder
+  length?: Prisma.SortOrder
+  width?: Prisma.SortOrder
+  height?: Prisma.SortOrder
+  dimensionUnit?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrder
+  seoDescription?: Prisma.SortOrder
+  seoSlug?: Prisma.SortOrder
+  isFeatured?: Prisma.SortOrder
+  isDigital?: Prisma.SortOrder
   storeId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -354,11 +979,46 @@ export type ProductMaxOrderByAggregateInput = {
 export type ProductMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  price?: Prisma.SortOrder
+  shortDescription?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  sku?: Prisma.SortOrder
+  barcode?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  brand?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  price?: Prisma.SortOrder
+  compareAtPrice?: Prisma.SortOrder
+  costPerItem?: Prisma.SortOrder
+  stock?: Prisma.SortOrder
+  lowStockThreshold?: Prisma.SortOrder
+  trackInventory?: Prisma.SortOrder
+  requiresShipping?: Prisma.SortOrder
+  weight?: Prisma.SortOrder
+  weightUnit?: Prisma.SortOrder
+  length?: Prisma.SortOrder
+  width?: Prisma.SortOrder
+  height?: Prisma.SortOrder
+  dimensionUnit?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrder
+  seoDescription?: Prisma.SortOrder
+  seoSlug?: Prisma.SortOrder
+  isFeatured?: Prisma.SortOrder
+  isDigital?: Prisma.SortOrder
   storeId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type ProductSumOrderByAggregateInput = {
+  price?: Prisma.SortOrder
+  compareAtPrice?: Prisma.SortOrder
+  costPerItem?: Prisma.SortOrder
+  stock?: Prisma.SortOrder
+  lowStockThreshold?: Prisma.SortOrder
+  weight?: Prisma.SortOrder
+  length?: Prisma.SortOrder
+  width?: Prisma.SortOrder
+  height?: Prisma.SortOrder
 }
 
 export type ProductCreateNestedManyWithoutStoreInput = {
@@ -403,11 +1063,82 @@ export type ProductUncheckedUpdateManyWithoutStoreNestedInput = {
   deleteMany?: Prisma.ProductScalarWhereInput | Prisma.ProductScalarWhereInput[]
 }
 
+export type ProductCreatetagsInput = {
+  set: string[]
+}
+
+export type ProductUpdatetagsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type EnumProductStatusFieldUpdateOperationsInput = {
+  set?: $Enums.ProductStatus
+}
+
+export type DecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type EnumWeightUnitFieldUpdateOperationsInput = {
+  set?: $Enums.WeightUnit
+}
+
+export type EnumDimensionUnitFieldUpdateOperationsInput = {
+  set?: $Enums.DimensionUnit
+}
+
 export type ProductCreateWithoutStoreInput = {
   id?: string
   name: string
-  price: string
+  shortDescription?: string | null
   description: string
+  sku?: string | null
+  barcode?: string | null
+  category: string
+  brand?: string | null
+  tags?: Prisma.ProductCreatetagsInput | string[]
+  status?: $Enums.ProductStatus
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  compareAtPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  costPerItem?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  stock?: number | null
+  lowStockThreshold?: number | null
+  trackInventory?: boolean
+  requiresShipping?: boolean
+  weight?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightUnit?: $Enums.WeightUnit
+  length?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  width?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  height?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dimensionUnit?: $Enums.DimensionUnit
+  variantOptions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  seoTitle?: string | null
+  seoDescription?: string | null
+  seoSlug?: string | null
+  isFeatured?: boolean
+  isDigital?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -415,8 +1146,34 @@ export type ProductCreateWithoutStoreInput = {
 export type ProductUncheckedCreateWithoutStoreInput = {
   id?: string
   name: string
-  price: string
+  shortDescription?: string | null
   description: string
+  sku?: string | null
+  barcode?: string | null
+  category: string
+  brand?: string | null
+  tags?: Prisma.ProductCreatetagsInput | string[]
+  status?: $Enums.ProductStatus
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  compareAtPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  costPerItem?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  stock?: number | null
+  lowStockThreshold?: number | null
+  trackInventory?: boolean
+  requiresShipping?: boolean
+  weight?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightUnit?: $Enums.WeightUnit
+  length?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  width?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  height?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dimensionUnit?: $Enums.DimensionUnit
+  variantOptions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  seoTitle?: string | null
+  seoDescription?: string | null
+  seoSlug?: string | null
+  isFeatured?: boolean
+  isDigital?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -453,8 +1210,34 @@ export type ProductScalarWhereInput = {
   NOT?: Prisma.ProductScalarWhereInput | Prisma.ProductScalarWhereInput[]
   id?: Prisma.StringFilter<"Product"> | string
   name?: Prisma.StringFilter<"Product"> | string
-  price?: Prisma.StringFilter<"Product"> | string
+  shortDescription?: Prisma.StringNullableFilter<"Product"> | string | null
   description?: Prisma.StringFilter<"Product"> | string
+  sku?: Prisma.StringNullableFilter<"Product"> | string | null
+  barcode?: Prisma.StringNullableFilter<"Product"> | string | null
+  category?: Prisma.StringFilter<"Product"> | string
+  brand?: Prisma.StringNullableFilter<"Product"> | string | null
+  tags?: Prisma.StringNullableListFilter<"Product">
+  status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
+  images?: Prisma.JsonFilter<"Product">
+  price?: Prisma.DecimalFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  compareAtPrice?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  costPerItem?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  stock?: Prisma.IntNullableFilter<"Product"> | number | null
+  lowStockThreshold?: Prisma.IntNullableFilter<"Product"> | number | null
+  trackInventory?: Prisma.BoolFilter<"Product"> | boolean
+  requiresShipping?: Prisma.BoolFilter<"Product"> | boolean
+  weight?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightUnit?: Prisma.EnumWeightUnitFilter<"Product"> | $Enums.WeightUnit
+  length?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  width?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  height?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dimensionUnit?: Prisma.EnumDimensionUnitFilter<"Product"> | $Enums.DimensionUnit
+  variantOptions?: Prisma.JsonFilter<"Product">
+  seoTitle?: Prisma.StringNullableFilter<"Product"> | string | null
+  seoDescription?: Prisma.StringNullableFilter<"Product"> | string | null
+  seoSlug?: Prisma.StringNullableFilter<"Product"> | string | null
+  isFeatured?: Prisma.BoolFilter<"Product"> | boolean
+  isDigital?: Prisma.BoolFilter<"Product"> | boolean
   storeId?: Prisma.StringFilter<"Product"> | string
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
@@ -463,8 +1246,34 @@ export type ProductScalarWhereInput = {
 export type ProductCreateManyStoreInput = {
   id?: string
   name: string
-  price: string
+  shortDescription?: string | null
   description: string
+  sku?: string | null
+  barcode?: string | null
+  category: string
+  brand?: string | null
+  tags?: Prisma.ProductCreatetagsInput | string[]
+  status?: $Enums.ProductStatus
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  compareAtPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  costPerItem?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  stock?: number | null
+  lowStockThreshold?: number | null
+  trackInventory?: boolean
+  requiresShipping?: boolean
+  weight?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightUnit?: $Enums.WeightUnit
+  length?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  width?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  height?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dimensionUnit?: $Enums.DimensionUnit
+  variantOptions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  seoTitle?: string | null
+  seoDescription?: string | null
+  seoSlug?: string | null
+  isFeatured?: boolean
+  isDigital?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -472,8 +1281,34 @@ export type ProductCreateManyStoreInput = {
 export type ProductUpdateWithoutStoreInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.StringFieldUpdateOperationsInput | string
+  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.ProductUpdatetagsInput | string[]
+  status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  compareAtPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  costPerItem?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  lowStockThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trackInventory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weight?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightUnit?: Prisma.EnumWeightUnitFieldUpdateOperationsInput | $Enums.WeightUnit
+  length?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  width?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  height?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dimensionUnit?: Prisma.EnumDimensionUnitFieldUpdateOperationsInput | $Enums.DimensionUnit
+  variantOptions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDigital?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -481,8 +1316,34 @@ export type ProductUpdateWithoutStoreInput = {
 export type ProductUncheckedUpdateWithoutStoreInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.StringFieldUpdateOperationsInput | string
+  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.ProductUpdatetagsInput | string[]
+  status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  compareAtPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  costPerItem?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  lowStockThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trackInventory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weight?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightUnit?: Prisma.EnumWeightUnitFieldUpdateOperationsInput | $Enums.WeightUnit
+  length?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  width?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  height?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dimensionUnit?: Prisma.EnumDimensionUnitFieldUpdateOperationsInput | $Enums.DimensionUnit
+  variantOptions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDigital?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -490,8 +1351,34 @@ export type ProductUncheckedUpdateWithoutStoreInput = {
 export type ProductUncheckedUpdateManyWithoutStoreInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.StringFieldUpdateOperationsInput | string
+  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.ProductUpdatetagsInput | string[]
+  status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  compareAtPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  costPerItem?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  lowStockThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trackInventory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weight?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightUnit?: Prisma.EnumWeightUnitFieldUpdateOperationsInput | $Enums.WeightUnit
+  length?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  width?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  height?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dimensionUnit?: Prisma.EnumDimensionUnitFieldUpdateOperationsInput | $Enums.DimensionUnit
+  variantOptions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDigital?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -501,8 +1388,34 @@ export type ProductUncheckedUpdateManyWithoutStoreInput = {
 export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  price?: boolean
+  shortDescription?: boolean
   description?: boolean
+  sku?: boolean
+  barcode?: boolean
+  category?: boolean
+  brand?: boolean
+  tags?: boolean
+  status?: boolean
+  images?: boolean
+  price?: boolean
+  compareAtPrice?: boolean
+  costPerItem?: boolean
+  stock?: boolean
+  lowStockThreshold?: boolean
+  trackInventory?: boolean
+  requiresShipping?: boolean
+  weight?: boolean
+  weightUnit?: boolean
+  length?: boolean
+  width?: boolean
+  height?: boolean
+  dimensionUnit?: boolean
+  variantOptions?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
+  seoSlug?: boolean
+  isFeatured?: boolean
+  isDigital?: boolean
   storeId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -512,8 +1425,34 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  price?: boolean
+  shortDescription?: boolean
   description?: boolean
+  sku?: boolean
+  barcode?: boolean
+  category?: boolean
+  brand?: boolean
+  tags?: boolean
+  status?: boolean
+  images?: boolean
+  price?: boolean
+  compareAtPrice?: boolean
+  costPerItem?: boolean
+  stock?: boolean
+  lowStockThreshold?: boolean
+  trackInventory?: boolean
+  requiresShipping?: boolean
+  weight?: boolean
+  weightUnit?: boolean
+  length?: boolean
+  width?: boolean
+  height?: boolean
+  dimensionUnit?: boolean
+  variantOptions?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
+  seoSlug?: boolean
+  isFeatured?: boolean
+  isDigital?: boolean
   storeId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -523,8 +1462,34 @@ export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  price?: boolean
+  shortDescription?: boolean
   description?: boolean
+  sku?: boolean
+  barcode?: boolean
+  category?: boolean
+  brand?: boolean
+  tags?: boolean
+  status?: boolean
+  images?: boolean
+  price?: boolean
+  compareAtPrice?: boolean
+  costPerItem?: boolean
+  stock?: boolean
+  lowStockThreshold?: boolean
+  trackInventory?: boolean
+  requiresShipping?: boolean
+  weight?: boolean
+  weightUnit?: boolean
+  length?: boolean
+  width?: boolean
+  height?: boolean
+  dimensionUnit?: boolean
+  variantOptions?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
+  seoSlug?: boolean
+  isFeatured?: boolean
+  isDigital?: boolean
   storeId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -534,14 +1499,40 @@ export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type ProductSelectScalar = {
   id?: boolean
   name?: boolean
-  price?: boolean
+  shortDescription?: boolean
   description?: boolean
+  sku?: boolean
+  barcode?: boolean
+  category?: boolean
+  brand?: boolean
+  tags?: boolean
+  status?: boolean
+  images?: boolean
+  price?: boolean
+  compareAtPrice?: boolean
+  costPerItem?: boolean
+  stock?: boolean
+  lowStockThreshold?: boolean
+  trackInventory?: boolean
+  requiresShipping?: boolean
+  weight?: boolean
+  weightUnit?: boolean
+  length?: boolean
+  width?: boolean
+  height?: boolean
+  dimensionUnit?: boolean
+  variantOptions?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
+  seoSlug?: boolean
+  isFeatured?: boolean
+  isDigital?: boolean
   storeId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "price" | "description" | "storeId" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "shortDescription" | "description" | "sku" | "barcode" | "category" | "brand" | "tags" | "status" | "images" | "price" | "compareAtPrice" | "costPerItem" | "stock" | "lowStockThreshold" | "trackInventory" | "requiresShipping" | "weight" | "weightUnit" | "length" | "width" | "height" | "dimensionUnit" | "variantOptions" | "seoTitle" | "seoDescription" | "seoSlug" | "isFeatured" | "isDigital" | "storeId" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
 export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   store?: boolean | Prisma.StoreDefaultArgs<ExtArgs>
 }
@@ -560,8 +1551,34 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
-    price: string
+    shortDescription: string | null
     description: string
+    sku: string | null
+    barcode: string | null
+    category: string
+    brand: string | null
+    tags: string[]
+    status: $Enums.ProductStatus
+    images: runtime.JsonValue
+    price: runtime.Decimal
+    compareAtPrice: runtime.Decimal | null
+    costPerItem: runtime.Decimal | null
+    stock: number | null
+    lowStockThreshold: number | null
+    trackInventory: boolean
+    requiresShipping: boolean
+    weight: runtime.Decimal | null
+    weightUnit: $Enums.WeightUnit
+    length: runtime.Decimal | null
+    width: runtime.Decimal | null
+    height: runtime.Decimal | null
+    dimensionUnit: $Enums.DimensionUnit
+    variantOptions: runtime.JsonValue
+    seoTitle: string | null
+    seoDescription: string | null
+    seoSlug: string | null
+    isFeatured: boolean
+    isDigital: boolean
     storeId: string
     createdAt: Date
     updatedAt: Date
@@ -991,8 +2008,34 @@ export interface Prisma__ProductClient<T, Null = never, ExtArgs extends runtime.
 export interface ProductFieldRefs {
   readonly id: Prisma.FieldRef<"Product", 'String'>
   readonly name: Prisma.FieldRef<"Product", 'String'>
-  readonly price: Prisma.FieldRef<"Product", 'String'>
+  readonly shortDescription: Prisma.FieldRef<"Product", 'String'>
   readonly description: Prisma.FieldRef<"Product", 'String'>
+  readonly sku: Prisma.FieldRef<"Product", 'String'>
+  readonly barcode: Prisma.FieldRef<"Product", 'String'>
+  readonly category: Prisma.FieldRef<"Product", 'String'>
+  readonly brand: Prisma.FieldRef<"Product", 'String'>
+  readonly tags: Prisma.FieldRef<"Product", 'String[]'>
+  readonly status: Prisma.FieldRef<"Product", 'ProductStatus'>
+  readonly images: Prisma.FieldRef<"Product", 'Json'>
+  readonly price: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly compareAtPrice: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly costPerItem: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly stock: Prisma.FieldRef<"Product", 'Int'>
+  readonly lowStockThreshold: Prisma.FieldRef<"Product", 'Int'>
+  readonly trackInventory: Prisma.FieldRef<"Product", 'Boolean'>
+  readonly requiresShipping: Prisma.FieldRef<"Product", 'Boolean'>
+  readonly weight: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly weightUnit: Prisma.FieldRef<"Product", 'WeightUnit'>
+  readonly length: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly width: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly height: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly dimensionUnit: Prisma.FieldRef<"Product", 'DimensionUnit'>
+  readonly variantOptions: Prisma.FieldRef<"Product", 'Json'>
+  readonly seoTitle: Prisma.FieldRef<"Product", 'String'>
+  readonly seoDescription: Prisma.FieldRef<"Product", 'String'>
+  readonly seoSlug: Prisma.FieldRef<"Product", 'String'>
+  readonly isFeatured: Prisma.FieldRef<"Product", 'Boolean'>
+  readonly isDigital: Prisma.FieldRef<"Product", 'Boolean'>
   readonly storeId: Prisma.FieldRef<"Product", 'String'>
   readonly createdAt: Prisma.FieldRef<"Product", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Product", 'DateTime'>

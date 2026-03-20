@@ -67,14 +67,44 @@ model Store {
 
 //products
 model Product {
-  id          String   @id @default(uuid())
-  name        String
-  price       String
-  description String
-  storeId     String
-  store       Store    @relation(fields: [storeId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                String        @id @default(uuid())
+  name              String
+  shortDescription  String?       @db.VarChar(160)
+  description       String        @db.Text
+  sku               String?
+  barcode           String?
+  category          String
+  brand             String?
+  tags              String[]      @default([])
+  status            ProductStatus @default(DRAFT)
+  images            Json          @default("[]")
+  price             Decimal       @db.Decimal(10, 2)
+  compareAtPrice    Decimal?      @db.Decimal(10, 2)
+  costPerItem       Decimal?      @db.Decimal(10, 2)
+  stock             Int?
+  lowStockThreshold Int?
+  trackInventory    Boolean       @default(false)
+  requiresShipping  Boolean       @default(true)
+  weight            Decimal?      @db.Decimal(10, 3)
+  weightUnit        WeightUnit    @default(KG)
+  length            Decimal?      @db.Decimal(10, 2)
+  width             Decimal?      @db.Decimal(10, 2)
+  height            Decimal?      @db.Decimal(10, 2)
+  dimensionUnit     DimensionUnit @default(CM)
+  variantOptions    Json          @default("[]")
+  seoTitle          String?       @db.VarChar(70)
+  seoDescription    String?       @db.VarChar(160)
+  seoSlug           String?
+  isFeatured        Boolean       @default(false)
+  isDigital         Boolean       @default(false)
+  storeId           String
+  store             Store         @relation(fields: [storeId], references: [id])
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@unique([storeId, sku])
+  @@index([storeId, status])
+  @@index([category])
 }
 
 // ENUMS
@@ -82,4 +112,22 @@ enum Role {
   BUYER
   VENDOR
   ADMIN
+}
+
+enum ProductStatus {
+  ACTIVE
+  DRAFT
+  ARCHIVED
+}
+
+enum WeightUnit {
+  KG
+  G
+  LB
+  OZ
+}
+
+enum DimensionUnit {
+  CM
+  IN
 }
