@@ -131,21 +131,3 @@ enum DimensionUnit {
   CM
   IN
 }
-
-enum ProductStatus {
-  ACTIVE
-  DRAFT
-  ARCHIVED
-}
-
-enum WeightUnit {
-  KG
-  G
-  LB
-  OZ
-}
-
-enum DimensionUnit {
-  CM
-  IN
-}
