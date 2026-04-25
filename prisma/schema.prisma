@@ -18,10 +18,17 @@ model User {
   vendorProfile VendorProfile?
   adminProfile  AdminProfile?
 
-  role Roles @default(CUSTOMER)
+  role Role[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Role {
+  id        String   @id @default(uuid())
+  role      Roles    @unique @default(CUSTOMER)
+  user      User[]
+  createdAt DateTime @default(now())
 }
 
 model BuyerProfile {
