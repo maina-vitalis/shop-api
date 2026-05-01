@@ -68,5 +68,7 @@ export class UsersController {
   @Post()
   @ApiOperation({ summary: 'Upgrade current buyer user to a vendor' })
   @ApiResponse({ status: 200, description: 'Upgrade user account' })
-  async upgradeToVendor() {}
+  async upgradeToVendor(@CurrentUser() user: User) {
+    return this.usersService.upgradeToVendor(user.id);
+  }
 }

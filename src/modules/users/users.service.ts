@@ -1,7 +1,13 @@
-import { Injectable, NotFoundException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  Logger,
+  BadRequestException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateUserDto } from './dto';
-import { User } from '../../generated/prisma/client';
+import { Roles, User } from '../../generated/prisma/client';
 
 @Injectable()
 export class UsersService {
@@ -102,5 +108,55 @@ export class UsersService {
   }
 
   //update user to a vendor
-  async upgradeToVendor() {}
+  async upgradeToVendor(id: string) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        role: true,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException(
+        'something went wrong ----user dosent exist OR',
+      );
+    }
+
+    const isVendor = user.role.some((r) => r.role === Roles.VENDOR);
+
+    if (isVendor) {
+      throw new BadRequestException('User is already a vendor');
+    }
+
+    return await this.prisma.$transaction(async (tx) => {
+      try {
+        const vendorProfile = await tx.vendorProfile.create({
+          data: {
+            userId: id,
+            status: 'ONBOARDING',
+          },
+        });
+
+        await tx.user.update({
+          where: {
+            id,
+          },
+          data: {
+            role: {
+              connect: { role: 'VENDOR' },
+            },
+          },
+        });
+
+        return vendorProfile;
+      } catch (error) {
+        console.log(error);
+        throw new InternalServerErrorException(
+          'Error while transitioning vendor',
+        );
+      }
+    });
+  }
 }
