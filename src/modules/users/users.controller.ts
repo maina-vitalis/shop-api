@@ -25,14 +25,7 @@ import { type User } from '../../generated/prisma/client';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Get('me')
-  @ApiOperation({ summary: 'Get current user profile' })
-  @ApiResponse({ status: 200, description: 'User profile retrieved' })
-  async getProfile(@CurrentUser() user: User) {
-    return this.usersService.findById(user.id);
-  }
-
-  @Patch('me')
+  @Patch()
   @ApiOperation({ summary: 'Update current user profile' })
   @ApiResponse({ status: 200, description: 'Profile updated' })
   async updateProfile(
@@ -57,7 +50,7 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Delete('me')
+  @Delete()
   @ApiOperation({ summary: 'Delete current user account' })
   @ApiResponse({ status: 200, description: 'Account deleted' })
   async deleteAccount(@CurrentUser() user: User) {
