@@ -3,9 +3,9 @@ import { ConfigService } from '@nestjs/config';
 import * as ejs from 'ejs';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
-import { EnvConfig } from 'src/config/env.config';
 import nodemailer from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
+import { EnvConfig } from '../../config/env.config';
 
 export interface OTPEmailData {
   email: string;

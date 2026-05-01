@@ -16,7 +16,7 @@ import {
 import { UsersService } from '../services/users.service';
 import { JwtAuthGuard, CurrentUser } from '../../auth';
 import { UpdateUserDto } from '../dto';
-import { type User } from 'src/generated/prisma/client';
+import { type User } from '../../../generated/prisma/client';
 
 @ApiTags('Users')
 @ApiBearerAuth()

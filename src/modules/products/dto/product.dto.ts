@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   IsNotEmpty,
   IsString,
@@ -15,7 +16,7 @@ import {
   DimensionUnit,
   ProductStatus,
   WeightUnit,
-} from 'src/generated/prisma/enums';
+} from '../../../generated/prisma/enums';
 
 export class CreateProductDto {
   @IsNotEmpty()
