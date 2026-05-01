@@ -19,7 +19,7 @@ export class TokenService {
   /**
    * Generate access token (short-lived)
    */
-  generateAccessToken(userId: string, role: string): string {
+  generateAccessToken(userId: string, role?: string): string {
     return this.jwtService.sign(
       { userId, role },
       {

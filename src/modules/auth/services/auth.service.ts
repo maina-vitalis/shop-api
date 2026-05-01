@@ -164,10 +164,7 @@ export class AuthService {
     const { password: removedPassword, ...userWithoutPassword } = user;
 
     // Generate tokens
-    const accessToken = this.tokenService.generateAccessToken(
-      user.id,
-      user.role,
-    );
+    const accessToken = this.tokenService.generateAccessToken(user.id);
     const refreshToken = this.tokenService.generateRefreshToken(user.id);
 
     this.logger.log(`User ${email} logged in successfully`);
@@ -284,10 +281,7 @@ export class AuthService {
     await this.redisService.del(`reset:${hashedToken}`);
 
     // Generate new access token for automatic login
-    const accessToken = this.tokenService.generateAccessToken(
-      user.id,
-      user.role,
-    );
+    const accessToken = this.tokenService.generateAccessToken(user.id);
 
     this.logger.log(`Password reset successful for user ${userId}`);
 
