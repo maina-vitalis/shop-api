@@ -49,9 +49,10 @@ model VendorProfile {
   status      VendorStatus @default(ONBOARDING)
   description String?
   isVerified  Boolean      @default(false)
-  bankAccount String?
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  KYCUrl      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model AdminProfile {
@@ -73,6 +74,9 @@ model Store {
 
   idDocumentUrl String?
   taxDocument   String?
+
+  bankAccountNumber String?
+  routingNumber     String?
 
   logoUrl    String?
   bannerUrl  String?
