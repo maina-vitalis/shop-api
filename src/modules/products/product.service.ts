@@ -1,7 +1,7 @@
-import { CloudinaryService } from '../../../shared/cloudinary/cloudinary.service';
-import { PrismaService } from '../../prisma/prisma.service';
-import { CreateProductDto } from '../dto/product.dto';
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
+import { CloudinaryService } from '../../shared/cloudinary/cloudinary.service';
+import { CreateProductDto } from './dto/product.dto';
 
 @Injectable()
 export class ProductService {

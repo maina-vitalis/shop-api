@@ -1,6 +1,6 @@
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CreateProductDto } from '../dto/product.dto';
-import { ProductService } from '../services/product.service';
+import { CreateProductDto } from './dto/product.dto';
+import { ProductService } from './product.service';
 import {
   Body,
   Controller,

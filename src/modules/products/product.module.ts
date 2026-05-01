@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { PrismaModule } from '../prisma/prisma.module';
-import { ProductController } from './controllers/product.controller';
-import { ProductService } from './services/product.service';
+
 import { CloudinaryModule } from '../../shared/cloudinary/cloudinary.module';
+import { ProductController } from './product.controller';
+import { ProductService } from './product.service';
 
 @Module({
   imports: [PrismaModule, CloudinaryModule],
