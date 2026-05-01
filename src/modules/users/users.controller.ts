@@ -6,6 +6,7 @@ import {
   Body,
   Param,
   UseGuards,
+  Post,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -63,4 +64,9 @@ export class UsersController {
   async deleteAccount(@CurrentUser() user: User) {
     return this.usersService.delete(user.id);
   }
+
+  @Post()
+  @ApiOperation({ summary: 'Upgrade current buyer user to a vendor' })
+  @ApiResponse({ status: 200, description: 'Upgrade user account' })
+  async upgradeToVendor() {}
 }

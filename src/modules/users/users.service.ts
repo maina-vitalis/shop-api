@@ -100,4 +100,7 @@ export class UsersService {
       message: 'Account deleted successfully',
     };
   }
+
+  //update user to a vendor
+  async upgradeToVendor() {}
 }

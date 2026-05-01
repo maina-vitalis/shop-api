@@ -42,15 +42,16 @@ model BuyerProfile {
 }
 
 model VendorProfile {
-  id          String   @id @default(uuid())
-  userId      String   @unique
-  user        User     @relation(fields: [userId], references: [id])
+  id          String       @id @default(uuid())
+  userId      String       @unique
+  user        User         @relation(fields: [userId], references: [id])
   store       Store[]
+  status      VendorStatus @default(ONBOARDING)
   description String?
-  isVerified  Boolean  @default(false)
+  isVerified  Boolean      @default(false)
   bankAccount String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }
 
 model AdminProfile {
@@ -64,13 +65,20 @@ model AdminProfile {
 }
 
 model Store {
-  id              String         @id @default(uuid())
-  name            String
-  description     String
+  id             String       @id @default(uuid())
+  storeName      String
+  registeredName String
+  description    String
+  businessType   BusinessType
+
+  idDocumentUrl String?
+  taxDocument   String?
+
+  logoUrl    String?
+  bannerUrl  String?
+  isVerified Boolean @default(false)
+
   vendorProfileId String?
-  logoUrl         String?
-  bannerUrl       String
-  isVerified      Boolean        @default(false)
   vendorProfile   VendorProfile? @relation(fields: [vendorProfileId], references: [id])
   products        Product[]
   createdAt       DateTime       @default(now())
@@ -141,4 +149,19 @@ enum WeightUnit {
 enum DimensionUnit {
   CM
   IN
+}
+
+enum VendorStatus {
+  ONBOARDING
+  PENDING_VERIFICATION
+  ACTIVE
+  REJECTED
+  SUSPENDED
+  ARCHIVED
+}
+
+enum BusinessType {
+  Individual
+  LLC
+  Corp
 }
