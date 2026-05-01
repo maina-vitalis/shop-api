@@ -13,10 +13,10 @@ import {
   ApiResponse,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { UsersService } from '../services/users.service';
-import { JwtAuthGuard, CurrentUser } from '../../auth';
-import { UpdateUserDto } from '../dto';
-import { type User } from '../../../generated/prisma/client';
+import { UsersService } from './users.service';
+import { JwtAuthGuard, CurrentUser } from '../auth';
+import { UpdateUserDto } from './dto';
+import { type User } from '../../generated/prisma/client';
 
 @ApiTags('Users')
 @ApiBearerAuth()
