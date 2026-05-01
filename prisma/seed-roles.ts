@@ -8,14 +8,16 @@ if (!databaseUrl) {
   throw new Error('DATABASE_URL is not set');
 }
 
-function createPool(allowSelfSigned: boolean): Pool {
+function createPool(options?: {
+  ssl?: boolean | Record<string, unknown>;
+}): Pool {
   return new Pool({
     connectionString: databaseUrl,
-    ssl: allowSelfSigned ? { rejectUnauthorized: false } : undefined,
+    ssl: options?.ssl,
   });
 }
 
-let pool = createPool(false);
+let pool = createPool();
 
 const roles = ['ADMIN', 'VENDOR', 'CUSTOMER'];
 
@@ -29,17 +31,24 @@ async function main() {
       error instanceof Error &&
       'code' in error &&
       error.code === 'DEPTH_ZERO_SELF_SIGNED_CERT';
+    const isSslNotSupportedError =
+      error instanceof Error &&
+      /does not support SSL connections/i.test(error.message);
 
-    if (!isSelfSignedError) {
+    if (!isSelfSignedError && !isSslNotSupportedError) {
       throw error;
     }
 
     console.warn(
-      'Self-signed certificate detected. Retrying with rejectUnauthorized=false for seeding only.',
+      isSelfSignedError
+        ? 'Self-signed certificate detected. Retrying with rejectUnauthorized=false for seeding only.'
+        : 'SSL is not supported by the database. Retrying without SSL for seeding only.',
     );
 
     await pool.end();
-    pool = createPool(true);
+    pool = createPool({
+      ssl: isSelfSignedError ? { rejectUnauthorized: false } : false,
+    });
     client = await pool.connect();
   }
 

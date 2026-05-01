@@ -116,7 +116,12 @@ export class AuthService {
     const userData: UserDataType = UserDataSchema.parse(parsed);
     // Create user in database
     await this.prisma.user.create({
-      data: userData,
+      data: {
+        ...userData,
+        role: {
+          connect: { role: 'CUSTOMER' },
+        },
+      },
     });
 
     // Clean up Redis

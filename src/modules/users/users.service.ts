@@ -22,6 +22,7 @@ export class UsersService {
     const user = await this.prisma.user.findUnique({
       where: { id },
       include: {
+        role: true,
         buyerProfile: true,
         adminProfile: true,
         vendorProfile: true,
