@@ -42,21 +42,25 @@ model BuyerProfile {
 }
 
 model VendorProfile {
-  id          String  @id @default(uuid())
-  userId      String  @unique
-  user        User    @relation(fields: [userId], references: [id])
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id])
   store       Store[]
   description String?
-  isVerified  Boolean @default(false)
+  isVerified  Boolean  @default(false)
   bankAccount String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model AdminProfile {
-  id          String @id @default(uuid())
-  userId      String @unique
-  user        User   @relation(fields: [userId], references: [id])
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id])
   department  String // e.g., "Finance", "Compliance"
-  accessLevel Int    @default(1)
+  accessLevel Int      @default(1)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Store {
