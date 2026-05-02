@@ -15,17 +15,32 @@ async function bootstrap() {
       origin: string | undefined,
       callback: (err: Error | null, allow?: boolean) => void,
     ) => {
-      // For local development or server-to-server requests, origin might be undefined
+      // Allow non-browser requests (e.g., server-to-server) where origin is undefined
       if (!origin) {
         callback(null, true);
         return;
       }
 
       const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [];
-      const isSubdomain = origin.endsWith('.vitalismaina.me');
-      const isAllowedExplicitly = allowedOrigins.includes(origin);
 
-      if (isAllowedExplicitly || isSubdomain) {
+      let hostMatches = false;
+      try {
+        const url = new URL(origin);
+        hostMatches =
+          url.hostname === 'vitalismaina.me' ||
+          url.hostname.endsWith('.vitalismaina.me');
+      } catch (err) {
+        console.log(err);
+        hostMatches =
+          origin.endsWith('.vitalismaina.me') ||
+          origin.includes('vitalismaina.me');
+      }
+
+      const isAllowedExplicitly =
+        allowedOrigins.includes(origin) ||
+        allowedOrigins.includes(new URL(origin).hostname as unknown as string);
+
+      if (isAllowedExplicitly || hostMatches) {
         callback(null, true);
       } else {
         Logger.warn(`CORS blocked request from origin: ${origin}`);
@@ -35,6 +50,7 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
     allowedHeaders: 'Content-Type, Accept, Authorization',
+    optionsSuccessStatus: 204,
   });
 
   app.use(morgan('dev'));
