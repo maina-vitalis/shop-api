@@ -18,6 +18,7 @@ import { UsersService } from './users.service';
 import { JwtAuthGuard, CurrentUser } from '../auth';
 import { UpdateUserDto } from './dto';
 import { type User } from '../../generated/prisma/client';
+import { PartialBusinessDto } from './dto/partial-business.dto';
 
 @ApiTags('Users')
 @ApiBearerAuth()
@@ -65,10 +66,13 @@ export class UsersController {
     return this.usersService.delete(user.id);
   }
 
-  @Post()
+  @Post('upgrade-to-vendor')
   @ApiOperation({ summary: 'Upgrade current buyer user to a vendor' })
   @ApiResponse({ status: 200, description: 'Upgrade user account' })
-  async upgradeToVendor(@CurrentUser() user: User) {
-    return this.usersService.upgradeToVendor(user.id);
+  async upgradeToVendor(
+    @CurrentUser() user: User,
+    @Body() partialBuiness: PartialBusinessDto,
+  ) {
+    return this.usersService.upgradeToVendor(user.id, partialBuiness);
   }
 }

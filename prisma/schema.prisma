@@ -42,13 +42,12 @@ model BuyerProfile {
 }
 
 model VendorProfile {
-  id          String       @id @default(uuid())
-  userId      String       @unique
-  user        User         @relation(fields: [userId], references: [id])
+  id          String  @id @default(uuid())
+  userId      String  @unique
+  user        User    @relation(fields: [userId], references: [id])
   store       Store[]
-  status      VendorStatus @default(ONBOARDING)
   description String?
-  isVerified  Boolean      @default(false)
+  isVerified  Boolean @default(false)
   KYCUrl      String?
 
   createdAt DateTime @default(now())
@@ -66,11 +65,13 @@ model AdminProfile {
 }
 
 model Store {
-  id             String       @id @default(uuid())
-  storeName      String
-  registeredName String
-  description    String
-  businessType   BusinessType
+  id             String        @id @default(uuid())
+  storeName      String?
+  registeredName String?
+  description    String?
+  businessType   BusinessType?
+
+  status StoreStatus @default(ONBOARDING)
 
   idDocumentUrl String?
   taxDocument   String?
@@ -155,7 +156,7 @@ enum DimensionUnit {
   IN
 }
 
-enum VendorStatus {
+enum StoreStatus {
   ONBOARDING
   PENDING_VERIFICATION
   ACTIVE

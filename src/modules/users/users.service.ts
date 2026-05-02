@@ -8,6 +8,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateUserDto } from './dto';
 import { Roles, User } from '../../generated/prisma/client';
+import { PartialBusinessDto } from './dto/partial-business.dto';
 
 @Injectable()
 export class UsersService {
@@ -109,7 +110,7 @@ export class UsersService {
   }
 
   //update user to a vendor
-  async upgradeToVendor(id: string) {
+  async upgradeToVendor(id: string, partialBuiness: PartialBusinessDto) {
     const user = await this.prisma.user.findUnique({
       where: {
         id,
@@ -136,7 +137,15 @@ export class UsersService {
         const vendorProfile = await tx.vendorProfile.create({
           data: {
             userId: id,
-            status: 'ONBOARDING',
+          },
+        });
+
+        await tx.store.create({
+          data: {
+            description: partialBuiness.description,
+            storeName: partialBuiness.storeName,
+            businessType: partialBuiness.businessType,
+            vendorProfileId: vendorProfile.id,
           },
         });
 
