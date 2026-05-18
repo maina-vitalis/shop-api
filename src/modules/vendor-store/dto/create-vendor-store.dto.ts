@@ -10,7 +10,7 @@ import { BusinessType, StoreStatus } from '../../../generated/prisma/enums';
 export class CreateVendorStoreDto {
   @IsNotEmpty()
   @IsString()
-  storeName?: string;
+  storeName!: string;
 
   @IsOptional()
   @IsString()
@@ -18,11 +18,11 @@ export class CreateVendorStoreDto {
 
   @IsOptional()
   @IsString()
-  description?: string;
+  description!: string;
 
   @IsOptional()
   @IsEnum(BusinessType)
-  businessType?: BusinessType;
+  businessType!: BusinessType;
 
   @IsOptional()
   @IsUrl()

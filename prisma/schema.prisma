@@ -65,11 +65,11 @@ model AdminProfile {
 }
 
 model Store {
-  id             String        @id @default(uuid())
-  storeName      String?
+  id             String       @id @default(uuid())
+  storeName      String
   registeredName String?
-  description    String?
-  businessType   BusinessType?
+  description    String
+  businessType   BusinessType
 
   status StoreStatus @default(ONBOARDING)
 

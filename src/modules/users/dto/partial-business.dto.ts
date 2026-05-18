@@ -3,12 +3,12 @@ import { BusinessType } from '../../../generated/prisma/enums';
 
 export class PartialBusinessDto {
   @IsString()
-  storeName?: string;
+  storeName!: string;
 
   @IsString()
   @IsEnum(BusinessType)
-  businessType?: BusinessType;
+  businessType!: BusinessType;
 
   @IsString()
-  description?: string;
+  description!: string;
 }

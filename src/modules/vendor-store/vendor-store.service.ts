@@ -7,9 +7,8 @@ import { PrismaService } from '../prisma/prisma.service';
 export class VendorStoreService {
   constructor(private readonly prisma: PrismaService) {}
 
-  /**
-   * Create a new store for a vendor
-   */
+  // Create a new store for a vendor
+
   async create(userId: string, createVendorStoreDto: CreateVendorStoreDto) {
     // Verify that the vendor profile exists
     const vendorProfile = await this.prisma.vendorProfile.findUnique({
