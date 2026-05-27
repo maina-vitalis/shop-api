@@ -41,8 +41,9 @@ export class VendorStoreController {
   })
   @ApiResponse({ status: 200, description: 'All stores retrieved' })
   @Get()
-  findAll() {
-    return this.vendorStoreService.findAll();
+  findAllByVendor(@CurrentUser() user: User) {
+    console.log(user);
+    return this.vendorStoreService.findAllByVendor(user.id);
   }
 
   @Get(':id')

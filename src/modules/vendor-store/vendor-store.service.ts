@@ -8,7 +8,6 @@ export class VendorStoreService {
   constructor(private readonly prisma: PrismaService) {}
 
   // Create a new store for a vendor
-
   async create(userId: string, createVendorStoreDto: CreateVendorStoreDto) {
     // Verify that the vendor profile exists
     const vendorProfile = await this.prisma.vendorProfile.findUnique({
@@ -37,13 +36,11 @@ export class VendorStoreService {
     const vendorProfile = await this.prisma.vendorProfile.findUnique({
       where: { userId },
       include: {
-        store: {
-          include: {
-            products: true,
-          },
-        },
+        store: true,
       },
     });
+
+    console.log(vendorProfile);
 
     if (!vendorProfile) {
       throw new NotFoundException('Vendor profile not found for this user');

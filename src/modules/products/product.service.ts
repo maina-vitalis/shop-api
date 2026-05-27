@@ -46,11 +46,9 @@ export class ProductService {
 
     // 4. Save to Database
     try {
-      const newProduct = await this.prisma.product.create({
+      return await this.prisma.product.create({
         data: productData,
       });
-
-      return newProduct;
     } catch (error) {
       // Handle Prisma errors (e.g., unique constraint on SKU)
       console.error('Prisma Create Error:', error);
