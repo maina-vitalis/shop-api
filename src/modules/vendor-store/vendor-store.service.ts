@@ -40,8 +40,6 @@ export class VendorStoreService {
       },
     });
 
-    console.log(vendorProfile);
-
     if (!vendorProfile) {
       throw new NotFoundException('Vendor profile not found for this user');
     }

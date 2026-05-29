@@ -15,7 +15,7 @@ import { AnyFilesInterceptor } from '@nestjs/platform-express';
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
-  @Post('create')
+  @Post()
   @ApiOperation({ summary: 'Create new Product' })
   @UseInterceptors(AnyFilesInterceptor())
   createProduct(
