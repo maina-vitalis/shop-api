@@ -134,7 +134,6 @@ model Product {
 
 enum Roles {
   ADMIN
-  VENDOR
   CUSTOMER
 }
 

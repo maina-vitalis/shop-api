@@ -59,20 +59,21 @@ export class CreateProductDto {
   status?: ProductStatus;
 
   @IsOptional()
+  @IsArray()
   images?: any[];
 
   @IsNotEmpty()
-  @IsDecimal()
+  @IsNumber()
   @IsPositive()
   price!: number;
 
   @IsOptional()
-  @IsDecimal()
+  @IsNumber()
   @IsPositive()
   compareAtPrice?: number;
 
   @IsOptional()
-  @IsDecimal()
+  @IsNumber()
   @IsPositive()
   costPerItem?: number;
 
@@ -95,7 +96,7 @@ export class CreateProductDto {
   requiresShipping?: boolean;
 
   @IsOptional()
-  @IsDecimal()
+  @IsNumber()
   @IsPositive()
   weight?: number;
 
@@ -104,17 +105,17 @@ export class CreateProductDto {
   weightUnit?: WeightUnit;
 
   @IsOptional()
-  @IsDecimal()
+  @IsNumber()
   @IsPositive()
   length?: number;
 
   @IsOptional()
-  @IsDecimal()
+  @IsNumber()
   @IsPositive()
   width?: number;
 
   @IsOptional()
-  @IsDecimal()
+  @IsNumber()
   @IsPositive()
   height?: number;
 
