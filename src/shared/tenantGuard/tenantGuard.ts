@@ -6,6 +6,7 @@ import {
 import { AsyncStorageService } from '../asyncLocalStorage/asynStorage.service';
 import { Observable } from 'rxjs';
 import { Request } from 'express';
+import { AuthenticatedUser } from '../../types/authenticatedUser.type';
 
 export class StoreGuardContext implements CanActivate {
   constructor(private readonly storeStorage: AsyncStorageService) {}
@@ -14,8 +15,8 @@ export class StoreGuardContext implements CanActivate {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request: Request = context.switchToHttp().getRequest();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const user = request.user as any;
+
+    const user = request.user as AuthenticatedUser;
 
     // 1. Extract the active tenant identifier sent by the frontend configuration
     const storeId = request.headers['x-store-id'] as string;
@@ -26,18 +27,19 @@ export class StoreGuardContext implements CanActivate {
 
     //verify ownership
 
-    console.log(user?.vendorProfile, 'user in the store guard context');
+    const hasAccess = user.vendorProfile?.store.some(
+      (store) => store.id === storeId,
+    );
 
-    // if (!hasAccess) {
-    //   throw new ForbiddenException(
-    //     'You do not have administrative access to this store.',
-    //   );
-    // }
+    if (!hasAccess) {
+      throw new ForbiddenException(
+        'You do not have administrative access to this store.',
+      );
+    }
 
     let canProceed = false;
-    this.storeStorage.run(storeId, () => {
-      canProceed = true;
-    });
+
+    this.storeStorage.run(storeId, () => (canProceed = true));
 
     return canProceed;
   }
