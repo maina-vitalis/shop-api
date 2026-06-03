@@ -1,8 +1,5 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-
-interface AuthenticatedUser {
-  id: string;
-}
+import type { AuthenticatedUser } from '../../../types/authenticatedUser.type';
 
 interface RequestWithUser {
   user: AuthenticatedUser;

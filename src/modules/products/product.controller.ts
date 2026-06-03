@@ -4,6 +4,7 @@ import { ProductService } from './product.service';
 import {
   Body,
   Controller,
+  Get,
   Post,
   UploadedFiles,
   UseInterceptors,
@@ -33,4 +34,7 @@ export class ProductController {
   ) {
     return this.productService.createProduct(createProductDto, files);
   }
+
+  @Get('')
+  getProduct() {}
 }

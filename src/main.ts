@@ -46,7 +46,7 @@ async function bootstrap() {
 
       const isAllowedExplicitly =
         allowedOrigins.includes(origin) ||
-        allowedOrigins.includes(new URL(origin).hostname as unknown as string);
+        allowedOrigins.includes(new URL(origin).hostname);
 
       if (isAllowedExplicitly || hostMatches) {
         callback(null, true);

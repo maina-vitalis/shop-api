@@ -19,10 +19,11 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { StoreGuardContext } from '../../shared/tenantGuard/tenantGuard';
 
 @ApiBearerAuth()
 @ApiTags('vendor-store')
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, StoreGuardContext)
 @Controller('vendor-store')
 export class VendorStoreController {
   constructor(private readonly vendorStoreService: VendorStoreService) {}
