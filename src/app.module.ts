@@ -16,7 +16,6 @@ import { validateEnv } from './config/env.config';
 import { CloudinaryModule } from './shared/cloudinary/cloudinary.module';
 import { ProductModule } from './modules/products/product.module';
 import { VendorStoreModule } from './modules/vendor-store/vendor-store.module';
-import { AsyncStorageModule } from './shared/asyncLocalStorage/asyncStorage.module';
 
 @Module({
   imports: [
@@ -32,7 +31,6 @@ import { AsyncStorageModule } from './shared/asyncLocalStorage/asyncStorage.modu
     CloudinaryModule,
     ProductModule,
     VendorStoreModule,
-    AsyncStorageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

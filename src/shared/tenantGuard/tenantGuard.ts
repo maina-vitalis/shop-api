@@ -4,14 +4,13 @@ import {
   ForbiddenException,
   Injectable,
 } from '@nestjs/common';
-import { AsyncStorageService } from '../asyncLocalStorage/asynStorage.service';
 import { Observable } from 'rxjs';
 import { Request } from 'express';
 import { AuthenticatedUser } from '../../types/authenticatedUser.type';
 
 @Injectable()
 export class StoreGuardContext implements CanActivate {
-  constructor(private readonly storeStorage: AsyncStorageService) {}
+  constructor() {}
 
   canActivate(
     context: ExecutionContext,
@@ -38,12 +37,6 @@ export class StoreGuardContext implements CanActivate {
       );
     }
 
-    let canProceed = false;
-
-    console.log(this.storeStorage);
-
-    this.storeStorage.run(storeId, () => (canProceed = true));
-
-    return canProceed;
+    return true;
   }
 }
