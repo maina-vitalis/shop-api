@@ -7,11 +7,14 @@ import {
   Get,
   Post,
   UploadedFiles,
+  UseGuards,
   UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
+import { JwtAuthGuard } from '../auth';
+import { StoreGuardContext } from '../../shared/tenantGuard/tenantGuard';
 
 @ApiTags('product')
 @Controller('product')
@@ -35,6 +38,9 @@ export class ProductController {
     return this.productService.createProduct(createProductDto, files);
   }
 
-  @Get('')
-  getProduct() {}
+  @Get()
+  @UseGuards(JwtAuthGuard, StoreGuardContext)
+  getProduct() {
+    return this.productService.getProducts();
+  }
 }

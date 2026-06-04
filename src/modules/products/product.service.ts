@@ -56,7 +56,9 @@ export class ProductService {
     }
   }
 
-  async getProducts() {}
+  async getProducts() {
+    return await this.prisma.tenantClient.findMany();
+  }
   async getProduct() {}
   async deleteProduct() {}
 }
