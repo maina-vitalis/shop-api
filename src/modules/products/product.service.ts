@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CloudinaryService } from '../../shared/cloudinary/cloudinary.service';
 import { CreateProductDto } from './dto/product.dto';
@@ -10,48 +14,54 @@ export class ProductService {
     private readonly cloudinary: CloudinaryService,
   ) {}
 
+  private filterImageFiles(files: Express.Multer.File[]) {
+    if (!files?.length) {
+      return [];
+    }
+
+    return files.filter(
+      (file) => file.fieldname === 'images' || !file.fieldname,
+    );
+  }
+
+  private async uploadImages(files: Express.Multer.File[]) {
+    const imageFiles = this.filterImageFiles(files);
+
+    if (imageFiles.length === 0) {
+      return [];
+    }
+
+    const uploadPromises = imageFiles.map(async (file, index) => {
+      const result = await this.cloudinary.uploadFile(file);
+      return {
+        url: result.secure_url,
+        alt: file.originalname,
+        isPrimary: index === 0,
+      };
+    });
+
+    return Promise.all(uploadPromises);
+  }
+
   //create product
   async createProduct(
+    storeId: string,
     createProductDto: CreateProductDto,
     files: Express.Multer.File[],
   ) {
-    // 1. Initialize an empty array for URLs
-    let imageUrls: {
-      url: string;
-      alt: string;
-      isPrimary: boolean;
-    }[] = [];
+    const imageUrls = await this.uploadImages(files);
 
-    // 2. Upload images only if they exist
-    if (files && files.length > 0) {
-      // We map directly to the upload call.
-      // Since uploadFile returns the Cloudinary object, we extract .secure_url
-      const uploadPromises = files.map(async (file, index) => {
-        const result = await this.cloudinary.uploadFile(file);
-        return {
-          url: result.secure_url,
-          alt: file.originalname,
-          isPrimary: index === 0,
-        };
-      });
-
-      imageUrls = await Promise.all(uploadPromises);
-    }
-
-    // 3. Construct the final object for Prisma
-    // We merge the DTO data with the newly generated image URL strings
     const productData = {
       ...createProductDto,
-      images: imageUrls, // This now matches your Prisma string[] type
+      storeId,
+      images: imageUrls,
     };
 
-    // 4. Save to Database
     try {
       return await this.prisma.product.create({
         data: productData,
       });
     } catch (error) {
-      // Handle Prisma errors (e.g., unique constraint on SKU)
       console.error('Prisma Create Error:', error);
       throw error;
     }
@@ -60,11 +70,14 @@ export class ProductService {
   //get products for the current store
   async getProducts(storeId: string) {
     if (!storeId) {
-      throw new Error('Store ID is required to fetch products.');
+      throw new ForbiddenException('Store ID is required to fetch products.');
     }
     return this.prisma.product.findMany({
       where: {
         storeId: storeId,
+      },
+      orderBy: {
+        createdAt: 'desc',
       },
     });
   }
@@ -83,50 +96,50 @@ export class ProductService {
     });
   }
 
-  async deleteProductById(id: string) {
+  async deleteProductById(id: string, storeId: string) {
+    const product = await this.prisma.product.findFirst({
+      where: { id, storeId },
+    });
+
+    if (!product) {
+      throw new NotFoundException(
+        'Product not found for this store or you do not have access.',
+      );
+    }
+
     return this.prisma.product.delete({
-      where: {
-        id: id,
-      },
+      where: { id },
     });
   }
 
   //update product by id
   async updateProductById(
     id: string,
+    storeId: string,
     updateProductDto: CreateProductDto,
     files: Express.Multer.File[],
   ) {
-    // Similar logic to createProduct for handling images
-    let imageUrls: {
-      url: string;
-      alt: string;
-      isPrimary: boolean;
-    }[] = [];
+    const existing = await this.prisma.product.findFirst({
+      where: { id, storeId },
+    });
 
-    if (files && files.length > 0) {
-      const uploadPromises = files.map(async (file, index) => {
-        const result = await this.cloudinary.uploadFile(file);
-        return {
-          url: result.secure_url,
-          alt: file.originalname,
-          isPrimary: index === 0,
-        };
-      });
-
-      imageUrls = await Promise.all(uploadPromises);
+    if (!existing) {
+      throw new NotFoundException(
+        'Product not found for this store or you do not have access.',
+      );
     }
+
+    const imageUrls = await this.uploadImages(files);
 
     const productData = {
       ...updateProductDto,
-      images: imageUrls.length > 0 ? imageUrls : undefined, // Only update images if new ones are provided
+      storeId,
+      ...(imageUrls.length > 0 ? { images: imageUrls } : {}),
     };
 
     try {
       return await this.prisma.product.update({
-        where: {
-          id: id,
-        },
+        where: { id },
         data: productData,
       });
     } catch (error) {

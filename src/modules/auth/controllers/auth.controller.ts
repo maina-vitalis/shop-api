@@ -7,6 +7,7 @@ import {
   HttpCode,
   HttpStatus,
   Req,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { type Request, type Response } from 'express';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -65,14 +66,15 @@ export class AuthController {
       sameSite: this.cookieSameSite,
       secure: this.isProduction,
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      path: '/',
     });
 
-    // Set access_token token as HTTP-only cookie
     response.cookie('access_token', result.accessToken, {
       httpOnly: true,
       sameSite: this.cookieSameSite,
       secure: this.isProduction,
       maxAge: 15 * 60 * 1000, // 15 minutes
+      path: '/',
     });
 
     return {
@@ -88,32 +90,31 @@ export class AuthController {
   @ApiOperation({ summary: 'Refresh access token' })
   @ApiResponse({ status: 200, description: 'New access token generated' })
   @ApiResponse({ status: 401, description: 'Invalid refresh token' })
-  refreshToken(
+  async refreshToken(
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
   ) {
-    // This will be handled by the JwtRefreshStrategy
-    // The refresh token is extracted from cookies in the strategy
-    const cookies = request.cookies;
-    const refreshToken = cookies?.['refresh_token'] as string;
+    const refreshToken = request.cookies?.['refresh_token'] as
+      | string
+      | undefined;
 
     if (!refreshToken) {
-      return {
-        statusCode: 401,
-        message: 'No refresh token provided',
-      };
+      throw new UnauthorizedException('No refresh token provided');
     }
 
-    const result = this.authService.refreshToken(refreshToken);
+    const result = await this.authService.refreshToken(refreshToken);
+
     response.cookie('access_token', result.accessToken, {
       httpOnly: true,
       sameSite: this.cookieSameSite,
       secure: this.isProduction,
       maxAge: 15 * 60 * 1000, // 15 minutes
+      path: '/',
     });
+
     return {
       status: 'success',
-      message: 'Login successful',
+      message: 'Token refreshed successfully',
     };
   }
 
@@ -136,8 +137,37 @@ export class AuthController {
   async resetPassword(
     @Param('resetToken') resetToken: string,
     @Body() resetPasswordDto: ResetPasswordDto,
+    @Res({ passthrough: true }) response: Response,
   ) {
-    return this.authService.resetPassword(resetToken, resetPasswordDto);
+    const result = await this.authService.resetPassword(
+      resetToken,
+      resetPasswordDto,
+    );
+
+    if (result.refreshToken) {
+      response.cookie('refresh_token', result.refreshToken, {
+        httpOnly: true,
+        sameSite: this.cookieSameSite,
+        secure: this.isProduction,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        path: '/',
+      });
+    }
+
+    if (result.accessToken) {
+      response.cookie('access_token', result.accessToken, {
+        httpOnly: true,
+        sameSite: this.cookieSameSite,
+        secure: this.isProduction,
+        maxAge: 15 * 60 * 1000,
+        path: '/',
+      });
+    }
+
+    return {
+      status: result.status,
+      message: result.message,
+    };
   }
 
   @Public()

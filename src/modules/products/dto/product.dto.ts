@@ -11,12 +11,26 @@ import {
   MinLength,
   MaxLength,
   IsPositive,
+  Min,
 } from 'class-validator';
+import { Transform } from 'class-transformer';
 import {
   DimensionUnit,
   ProductStatus,
   WeightUnit,
 } from '../../../generated/prisma/enums';
+
+function parseJsonFormField(value: unknown): unknown {
+  if (typeof value !== 'string') {
+    return value;
+  }
+
+  try {
+    return JSON.parse(value) as unknown;
+  } catch {
+    return value;
+  }
+}
 
 export class CreateProductDto {
   @IsNotEmpty()
@@ -69,12 +83,12 @@ export class CreateProductDto {
 
   @IsOptional()
   @IsNumber()
-  @IsPositive()
+  @Min(0)
   compareAtPrice?: number;
 
   @IsOptional()
   @IsNumber()
-  @IsPositive()
+  @Min(0)
   costPerItem?: number;
 
   @IsOptional()
@@ -124,6 +138,7 @@ export class CreateProductDto {
   dimensionUnit?: DimensionUnit;
 
   @IsOptional()
+  @Transform(({ value }) => parseJsonFormField(value))
   variantOptions?: any[];
 
   @IsOptional()
@@ -148,9 +163,9 @@ export class CreateProductDto {
   @IsBoolean()
   isDigital?: boolean;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  storeId!: string;
+  storeId?: string;
 }
 
 export class UpdateProductDto {

@@ -1,4 +1,4 @@
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateProductDto } from './dto/product.dto';
 import { ProductService } from './product.service';
 import {
@@ -19,6 +19,7 @@ import { JwtAuthGuard } from '../auth';
 import { StoreGuardContext } from '../../shared/tenantGuard/tenantGuard';
 
 @ApiTags('product')
+@ApiBearerAuth()
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -26,6 +27,7 @@ export class ProductController {
   //create product
   @Post()
   @ApiOperation({ summary: 'Create new Product' })
+  @UseGuards(JwtAuthGuard, StoreGuardContext)
   @UseInterceptors(AnyFilesInterceptor())
   @UsePipes(
     new ValidationPipe({
@@ -34,11 +36,12 @@ export class ProductController {
     }),
   )
   createProduct(
+    @Headers('x-store-id') storeId: string,
     @Body()
     createProductDto: CreateProductDto,
     @UploadedFiles() files: Express.Multer.File[] = [],
   ) {
-    return this.productService.createProduct(createProductDto, files);
+    return this.productService.createProduct(storeId, createProductDto, files);
   }
 
   //Get products for the current store
@@ -63,8 +66,11 @@ export class ProductController {
   //Delete product by id
   @Post('delete/:id')
   @UseGuards(JwtAuthGuard, StoreGuardContext)
-  deleteProductById(@Param('id') id: string) {
-    return this.productService.deleteProductById(id);
+  deleteProductById(
+    @Headers('x-store-id') storeId: string,
+    @Param('id') id: string,
+  ) {
+    return this.productService.deleteProductById(id, storeId);
   }
 
   //Update product by id
@@ -78,10 +84,16 @@ export class ProductController {
     }),
   )
   updateProductById(
+    @Headers('x-store-id') storeId: string,
     @Param('id') id: string,
     @Body() updateProductDto: CreateProductDto,
     @UploadedFiles() files: Express.Multer.File[] = [],
   ) {
-    return this.productService.updateProductById(id, updateProductDto, files);
+    return this.productService.updateProductById(
+      id,
+      storeId,
+      updateProductDto,
+      files,
+    );
   }
 }

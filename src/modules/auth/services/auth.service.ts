@@ -185,16 +185,26 @@ export class AuthService {
   /**
    * Refresh access token
    */
-  refreshToken(refreshToken: string) {
+  async refreshToken(refreshToken: string) {
     const payload = this.tokenService.verifyRefreshToken(refreshToken);
 
     if (!payload) {
       throw new UnauthorizedException('Invalid refresh token');
     }
 
+    const user = await this.prisma.user.findUnique({
+      where: { id: payload.userId },
+      include: { role: true },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+
+    const primaryRole = user.role[0]?.role;
     const accessToken = this.tokenService.generateAccessToken(
-      payload.userId,
-      payload.role,
+      user.id,
+      primaryRole,
     );
 
     return { accessToken };
@@ -286,8 +296,8 @@ export class AuthService {
     // Delete reset token from Redis
     await this.redisService.del(`reset:${hashedToken}`);
 
-    // Generate new access token for automatic login
     const accessToken = this.tokenService.generateAccessToken(user.id);
+    const refreshToken = this.tokenService.generateRefreshToken(user.id);
 
     this.logger.log(`Password reset successful for user ${userId}`);
 
@@ -295,6 +305,7 @@ export class AuthService {
       status: 'success',
       message: 'Password reset successful',
       accessToken,
+      refreshToken,
     };
   }
 }
